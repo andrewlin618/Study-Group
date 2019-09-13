@@ -10,11 +10,12 @@ $.ajax({
     url: queryURL,
     method: "GET"
 }).then(function (response) {
-    console.log('response', response); 
     for (var i = 0; i < 4; i++) {
     var keywordURL = response.items[i].link;
+    var keywordTitle = response.items[i].title;
+
+    console.log('keyword', keywordTitle);
     console.log('keyword', keywordURL);
-    $('KEYWORD-FORM'[i]).text(keywordURL[i])
     }
 
     
