@@ -1,0 +1,1 @@
+//storage name to localStorage
