@@ -21,12 +21,24 @@ function launchMainPage() {
     $('#space-holder').hide();
     $('#log-in-page').hide();
     $('#main-page').show();
-    $('#name-shortcut').text(localStorage.getItem('username-shortcut'))
     console.log(username, usernameShortcut, userCategory, userDifficulty, userLocationPreference);
 }
 
+function logIn() {
+    $('#name-shortcut').text(localStorage.getItem('username-shortcut'));
+    if (localStorage.getItem('user-category-select')) {
+        $('#category-select').val(localStorage.getItem('user-category-select'));
+    }
+    if (localStorage.getItem('user-difficulty-select')) {
+        $('#difficulty-select').val(localStorage.getItem('user-difficulty-select'));
+    }
+    if (localStorage.getItem('user-location-select')) {
+        $('#location-select').val(localStorage.getItem('user-location-select'));
+    }
+}
+
 function logOut() {
-    if( username === null){
+    if (username === null) {
         return;
     }
     username = null;
@@ -40,17 +52,17 @@ function logOut() {
     $('#log-in-page').show();
     $("#log-in-text").text("logging out…")
     $('#name-shortcut').html('&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp');
+    $('#category-select').val('Category');
+    $('#difficulty-select').val('Difficulty');
+    $('#location-select').val('Location');
 }
 
-
-function saveThisGroup(studyGroup){
 // TODO: Save studyGroup Object to Firebase 
+function saveThisGroup(studyGroup) {
+    localStorage.setItem('studyGroup1', studyGroup);
 }
 
-function printThisGroup(studyGroup){
-
-
-
-
+function printThisGroup(studyGroup) {
+    var studyGroupDiv
 
 }

@@ -5,17 +5,18 @@ var userDifficulty = localStorage.getItem('user-difficulty');
 var userLocationPreference = localStorage.getItem('user-location-preference');
 
 
+
+
 // ============================================================================
-// Check log in status
-// if logged in already
+// Check log in status:
 if (localStorage.getItem('username') !== null) {
+    logIn();
     launchMainPage();
-    // if not
 } else {
     launchLoginPage();
 }
 
-//Storage name to localStorage
+//Storage name to localStorage and log in:
 $(document).on('click', '.name-list', function () {
     username = $(this).text();
     usernameShortcut = username[0];
@@ -29,10 +30,12 @@ $(document).on('click', '.name-list', function () {
     $("#log-in-text").text("logging…")
     $("#log-in-btn").text(username);
     setTimeout(function () {
+        logIn();
         launchMainPage();
     }, 2500)
 });
 
+//Log out
 $(document).on('click', '#log-out', function () {
     logOut();
     $('#navbar-btn').addClass('collapsed')
@@ -44,17 +47,31 @@ $(document).on('click', '#log-out', function () {
     }, 2500)
 })
 
-$(document).on('click','#create-btn',function () {
+//Set category, difficulty, location preference:
+$('#category-select').on('change', function () {
+    localStorage.setItem('user-category-select', $(this).val());
+});
+$('#difficulty-select').on('change', function () {
+    localStorage.setItem('user-difficulty-select', $(this).val());
+});
+$('#location-select').on('change', function () {
+    localStorage.setItem('user-location-select', $(this).val());
+});
+
+//Create a new study group:
+$(document).on('click', '#create-btn', function () {
     if (username !== null) {
         $("#create-card").fadeIn();
     }
 })
 
-$(document).on('click','#cancel-btn',function () {
+//Cancel creating study group:
+$(document).on('click', '#cancel-btn', function () {
     $("#create-card").fadeOut();
 })
 
-$(document).on('click',"#submit-btn",function () {
+//Confirm creating study group:
+$(document).on('click', "#submit-btn", function () {
     var studyGroup = {
         creator: username,
         category: $('#category-input').val(),
@@ -67,13 +84,14 @@ $(document).on('click',"#submit-btn",function () {
         questions: ['API1:apple pen pineapple pen', 'API2:apple pen pineapple pen', 'API3:apple pen pineapple pen', 'API4:apple pen pineapple pen', 'API5:apple pen pineapple pen', ],
         books: ['Book1: Hello World', 'Book2: Hello World', 'Book3: Hello World', 'Book4: Hello World', 'Book5: Hello World']
     }
-    console.log
+    console.log(studyGroup);
 
     // TODO: Save studyGroup Object to Firebase ,check basicFunctions.js
     saveThisGroup(studyGroup);
 
     // This can be replaced by firebase snapshot
     printThisGroup(studyGroup);
-    
+
     $("#create-card").fadeOut();
 })
+
