@@ -2,6 +2,19 @@ body{
     background-image:url("../images/background.jpg");
     background-size:cover;
 }
+
 .spaceHolder{
     height:35vh;
+}
+
+#log-in-list{
+    height: 30vh;
+    overflow: scroll;
+}
+
+#main-page{
+    width: 90vw; 
+    min-height: 90vh;
+    opacity: 0.9;
+    background-color: grey;
 }

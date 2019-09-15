@@ -6,81 +6,182 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Study Group</title>
+    <!-- Bootstrap link: -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="assets/css/style.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-      <!-- Firebase Core JavaScript Link -->
-  <script src="https://www.gstatic.com/firebasejs/6.6.0/firebase-app.js"></script>
-  <!-- Specific Firebase products we want (Database) -->
-  <script src="https://www.gstatic.com/firebasejs/6.6.0/firebase-database.js"></script>
-
 </head>
+<!-- ==================================================================================================================================== -->
 
 <body>
-
-    <!-- Login page : navbar -->
-    <nav class="navbar navbar-dark bg-dark">
-        <a class="navbar-brand mx-auto" href="#">
-            <img src="assets/images/icon.png" width="30" height="30"
-                class="d-inline-block align-top" alt="">
-            Study Group
-        </a>
-    </nav>
-
-    <!-- Login page : -->
-    <div class="spaceHolder row"></div>
-    <h1 class="text-center text-light">Log in</h1>
-    <div class="dropdown text-center">
-            <button class="btn btn-secondary dropdown-toggle m-2" type="button" id="dropdownMenuButton" data-toggle="dropdown"
-                aria-haspopup="true" aria-expanded="false">
-                Choose your name
-            </button>
-            <div id="log-in-list" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <a class="dropdown-item" href="#">Andrew Lin</a>
-                <a class="dropdown-item" href="#">Joshua Jonas</a>
-                <a class="dropdown-item" href="#">Swathi Pottigari</a>
-            </div>
-        </div>
-
-
-
-    <!-- Main page : navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark d-none">
-        <a class="navbar-brand" href="#">Study Group</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+    <!-- Navbar: -->
+    <nav id="navbar" class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <h3 id="name-shortcut" class="text-light mt-2">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</h3>
+        <a class="navbar-brand ml-4" href="#">Study Group</a>
+        <button id="navbar-btn" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
             aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
-                <li class="nav-item active">
-                    <a class="nav-link" href="#">Category <span class="sr-only">(current)</span></a>
+                <li class="nav-item">
+                    <select id="category-select" class="form-control text-light bg-dark">
+                        <option>Category</option>
+                        <option>JavaScript</option>
+                        <option>CSS</option>
+                        <option>HTML</option>
+                    </select>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Difficulty</a>
+                    <select id="difficulty-select" class="form-control text-light bg-dark">
+                        <option>Difficulty</option>
+                        <option>Recommended</option>
+                        <option>Challenging</option>
+                    </select>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Location Preference</a>
+                    <select id="location-select" class="form-control text-light bg-dark">
+                        <option>Location</option>
+                        <option>Location2</option>
+                        <option>location3</option>
+                    </select>
+                </li>
+                <li class="nav-item">
+                    <a id="log-out" class="nav-link active" href="#">log out</a>
                 </li>
             </ul>
         </div>
     </nav>
+    <!-- ==================================================================================================================================== -->
+    <!-- Login page: -->
+    <div id="space-holder" class="spaceHolder row" style="display: none"></div>
+    <div id="log-in-page" class="card bg-dark mx-auto" style="width: 18rem; display: none">
+        <div class="card-body">
+            <h1 id="log-in-text" class="text-center text-light">Log in</h1>
+            <div class="dropdown text-center">
+                <!-- Dropdown button to show the name list -->
+                <button id="log-in-btn" class="btn btn-secondary dropdown-toggle m-2 w-75" type="button"
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Choose your name
+                </button>
+                <!-- Name list display here -->
+                <div id="log-in-list" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main page : -->
+    <div id="main-page" class="card m-auto"
+        style="width: 90vw; min-height: 90vh; opacity: 0.9; background-color: grey; display: none">
 
 
 
 
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+
+        
+    </div>
+    <!-- Create button -->
+    <nav id="navbar" class="navbar navbar-expand-lg navbar-dark bg-dark fixed-bottom">
+        <button id="create-btn" type="button" class="btn btn-success w-100" style="z-index:5">
+            Create a study group
+        </button>
+    </nav>
+    <!-- Create expanded card -->
+    <div id="create-card" class="card"
+        style="height: 80vh; width:100%; overflow: scroll; position:fixed;top:10%; z-index:3; display: none">
+        <form class="m-4">
+            <h5 class="text-center">New Study Group</h5><br>
+            <!-- Category select-->
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <label class="input-group-text" for="inputGroupSelect01">Category</label>
+                </div>
+                <select id="category-input" class="custom-select" id="inputGroupSelect01">
+                    <option selected>General</option>
+                    <option value="1">JavaScript</option>
+                    <option value="2">HTML</option>
+                    <option value="3">CSS</option>
+                </select>
+            </div>
+            <!-- Difficulty select-->
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <label class="input-group-text" for="inputGroupSelect01">Level</label>
+                </div>
+                <select id="difficulty-input" class="custom-select" id="inputGroupSelect01">
+                    <option selected>Recommended</option>
+                    <option value="1">Challenging</option>
+                </select>
+            </div>
+
+            <!-- Capacity select-->
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <label class="input-group-text" for="inputGroupSelect01">Capacity</label>
+                </div>
+                <select  id="capacity-input" class="custom-select" id="inputGroupSelect01">
+                    <option selected>No limit</option>
+                    <option value="1">under 5</option>
+                    <option value="2">under 10</option>
+                    <option value="3">under 15</option>
+                </select>
+            </div>
+
+            <!-- Discussion Topic -->
+            <div class="form-group">
+                <label>Discussion Topic</label>
+                <input id="topic-input" class="form-control" placeholder="Enter topic">
+            </div>
+
+            <!-- Location -->
+            <div class="form-group">
+                <label>Location</label>
+                <input id="location-input" class="form-control" placeholder="Enter Location">
+            </div>
+
+            <!-- TODO:Time -->
+            <div class="form-group">
+                <label>Date</label>
+                <input id="date-input" class="form-control" placeholder="Enter Date">
+            </div>
+            <div class="form-group">
+                <label>Time</label>
+                <input id="time-input" id="date-input" class="form-control" placeholder="Enter Time">
+            </div>
+            <!-- Buttons -->
+            <div style="text-align:right">
+                <button id="submit-btn" class="btn btn-success">Submit</button>
+                <button id="cancel-btn" class="btn btn-secondary">Cancel</button>
+            </div>
+        </form>
+    </div>
+    </div>
+    <!-- ==================================================================================================================================== -->
+    <!-- Bootstrap Javascript Links: -->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
+        </script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
+        </script>
+    <script type="text/javascript" src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+        </script>
+    <!-- Jquery Link: -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <!-- Firebase Core JavaScript Link -->
+    <script type="text/javascript" src="https://www.gstatic.com/firebasejs/6.6.0/firebase-app.js"></script>
+    <!-- Specific Firebase products we want (Database) -->
+    <script type="text/javascript" src="https://www.gstatic.com/firebasejs/6.6.0/firebase-database.js"></script>
+    <!-- Our JavaScript Files: -->
     <script type="text/javascript" src="assets/js/studentsInfo.js"></script>
-    <script type="text/javascript" src="assets/js/api.js"></script>
-    <script type="text/javascript" src="assets/js/firebase.js"></script>
     <script type="text/javascript" src="assets/js/basicFunction.js"></script>
+    <!-- <script type="text/javascript" src="assets/js/api.js"></script> -->
+    <!-- <script type="text/javascript" src="assets/js/firebase.js"></script> -->
     <script type="text/javascript" src="assets/js/loginPage.js"></script>
     <script type="text/javascript" src="assets/js/mainPage.js"></script>
-
 </body>
 
 </html>
