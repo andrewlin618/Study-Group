@@ -83,12 +83,6 @@ $(document).on('click', '.expand-btn', function () {
 
 
 
-
-
-
-
-
-
 // ============================= Creat Button ==============================
 
 //Create a new study group:
@@ -106,21 +100,22 @@ $(document).on('click', '#cancel-btn', function () {
 //Confirm creating study group:
 $(document).on('click', "#submit-btn", function () {
     var studyGroup = {
-        creator: username,
-        category: $('#category-input').val(),
-        difficulty: $('#difficulty-input').val(),
-        capacity: $('#capacity-input').val(),
-        topic: $('#topic-input').val(),
-        location: $('#location-input').val(),
-        date: $('#date-input').val(),
-        time: $('#time-input').val(),
-        questions: ['API1:apple pen pineapple pen', 'API2:apple pen pineapple pen', 'API3:apple pen pineapple pen', 'API4:apple pen pineapple pen', 'API5:apple pen pineapple pen', ],
-        books: ['Book1: Hello World', 'Book2: Hello World', 'Book3: Hello World', 'Book4: Hello World', 'Book5: Hello World']
+        'group-id':'dynamic',
+        'creator': username,
+        'category': $('#category-input').val(),
+        'difficulty': $('#difficulty-input').val(),
+        'capacity': $('#capacity-input').val(),
+        'topic': $('#topic-input').val(),
+        'location': $('#location-input').val(),
+        'date': $('#date-input').val(),
+        'time': $('#time-input').val(),
+        'questions': ['API1:apple pen pineapple pen', 'API2:apple pen pineapple pen', 'API3:apple pen pineapple pen', 'API4:apple pen pineapple pen', 'API5:apple pen pineapple pen', ],
+        'books': ['Book1: Hello World', 'Book2: Hello World', 'Book3: Hello World', 'Book4: Hello World', 'Book5: Hello World']
     }
     console.log(studyGroup);
 
     // TODO: Save studyGroup Object to Firebase ,check basicFunctions.js
-    saveThisGroup(studyGroup);
+    saveThisGroup();
 
     // This can be replaced by firebase snapshot
     printThisGroup(studyGroup);

@@ -3,7 +3,7 @@ body {
     background-size: cover;
 }
 
-p {
+p,a {
     font-size: 13px;
     margin-bottom: 0%;
 
@@ -16,27 +16,41 @@ p {
 .group-div {
     margin-left: auto;
     margin-right: auto;
-    width: 60%;
+    width: 50%;
 }
 
 #log-in-list {
     height: 30vh;
     overflow: scroll;
 }
+#navbar{
+    z-index: 4;
+}
+
+#main-page{
+    width: 95vw; 
+    min-height: 90vh; 
+    display: none;
+}
 
 #create-card{
     height: 80vh; 
-    width:100%; 
+    left: 20%;
+    width: 60%;
     overflow: scroll; 
     position:fixed; 
-    top:8%; 
-    z-index:3; 
+    bottom:8%; 
+    z-index:5; 
     display: none;
 }
 
 @media only screen and (max-width: 768px) {
-    p {
+    p{
         font-size: 10px;
+    }
+
+    label,.custom-select,.form-control, .input-group-text{
+        font-size: 13px;
     }
 
     .creator-img {
@@ -45,7 +59,12 @@ p {
     }
 
     .group-div {
-        width: 100%;
+        width: 98%
+    }
+
+    #create-card{
+        left:1%;
+        width:98%;
     }
 
 }

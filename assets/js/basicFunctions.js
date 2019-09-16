@@ -68,3 +68,5 @@ function printThisGroup(studyGroup) {
     var studyGroupDiv
 
 }
+
+
