@@ -25,7 +25,7 @@ var time = "";
 var capacity = "";
 
 // Click Button changes what is stored in firebase
-$("#click-button").on("click", function(event) {
+$("#submit-btn").on("click", function(event) {
   // Prevent the page from refreshing
   event.preventDefault();
 
@@ -44,7 +44,7 @@ $("#click-button").on("click", function(event) {
     difficulty: difficulty,
     time: time,
     capacity: capacity,
-  });
+  })
 });
 
 // Firebase is always watching for changes to the data.
