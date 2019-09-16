@@ -25,6 +25,7 @@ function launchMainPage() {
 }
 
 function logIn() {
+    $('#user-image').attr('src','assets/images/andrew-lin.png');
     $('#name-shortcut').text(localStorage.getItem('username-shortcut'));
     if (localStorage.getItem('user-category-select')) {
         $('#category-select').val(localStorage.getItem('user-category-select'));
@@ -52,6 +53,7 @@ function logOut() {
     $('#log-in-page').show();
     $("#log-in-text").text("logging out…")
     $('#name-shortcut').html('&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp');
+    $('#user-image').attr('src','assets/images/icon.png');
     $('#category-select').val('Category');
     $('#difficulty-select').val('Difficulty');
     $('#location-select').val('Location');

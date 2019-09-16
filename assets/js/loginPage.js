@@ -5,9 +5,7 @@ var userDifficulty = localStorage.getItem('user-difficulty');
 var userLocationPreference = localStorage.getItem('user-location-preference');
 
 
-
-
-// ============================================================================
+// ============================ Lgin page=============================
 // Check log in status:
 if (localStorage.getItem('username') !== null) {
     logIn();
@@ -47,6 +45,7 @@ $(document).on('click', '#log-out', function () {
     }, 2500)
 })
 
+// ============================= Navbar ==============================
 //Set category, difficulty, location preference:
 $('#category-select').on('change', function () {
     localStorage.setItem('user-category-select', $(this).val());
@@ -57,6 +56,40 @@ $('#difficulty-select').on('change', function () {
 $('#location-select').on('change', function () {
     localStorage.setItem('user-location-select', $(this).val());
 });
+
+// ============================= Main page ==============================
+
+$(document).on('click', '.expand-btn', function () {
+    if ($(this).attr('aria-expanded')==='true'){
+        $(this).html('&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp▲&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp');
+    } else{
+        $(this).text('learn more');
+    }
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// ============================= Creat Button ==============================
 
 //Create a new study group:
 $(document).on('click', '#create-btn', function () {
@@ -94,4 +127,3 @@ $(document).on('click', "#submit-btn", function () {
 
     $("#create-card").fadeOut();
 })
-

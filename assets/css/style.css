@@ -1,20 +1,51 @@
-body{
-    background-image:url("../images/background.jpg");
-    background-size:cover;
+body {
+    background-image: url("../images/background.jpg");
+    background-size: cover;
 }
 
-.spaceHolder{
-    height:35vh;
+p {
+    font-size: 13px;
+    margin-bottom: 0%;
+
 }
 
-#log-in-list{
+.spaceHolder {
+    height: 35vh;
+}
+
+.group-div {
+    margin-left: auto;
+    margin-right: auto;
+    width: 60%;
+}
+
+#log-in-list {
     height: 30vh;
     overflow: scroll;
 }
 
-#main-page{
-    width: 90vw; 
-    min-height: 90vh;
-    opacity: 0.9;
-    background-color: grey;
+#create-card{
+    height: 80vh; 
+    width:100%; 
+    overflow: scroll; 
+    position:fixed; 
+    top:8%; 
+    z-index:3; 
+    display: none;
+}
+
+@media only screen and (max-width: 768px) {
+    p {
+        font-size: 10px;
+    }
+
+    .creator-img {
+        width: 50px;
+        height: 50px;
+    }
+
+    .group-div {
+        width: 100%;
+    }
+
 }
