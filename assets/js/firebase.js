@@ -16,35 +16,33 @@ firebase.initializeApp(firebaseConfig);
 // Create a variable to reference the database
 var database = firebase.database();
 
-// Initial Variables (SET the first set IN FIREBASE FIRST)
-// Note remember to create these same variables in Firebase!
-var title = "";
-var category = "";
-var difficulty = "";
-var time = "";
-var capacity = "";
-
 // Click Button changes what is stored in firebase
-$("#click-button").on("click", function(event) {
+$("#submit-btn").on("click", function(event) {
   // Prevent the page from refreshing
   event.preventDefault();
 
   // Get inputs
-  title = $("#title-input").val().trim();
-  category = $("#category-input").val().trim();
-  difficulty = $("#difficulty-input").val().trim();
-  time = $("#time-input").val().trim();
-  capacity = $("#capacity-input").val().trim();
+  var topic = $("#topic-input").val();
+  var category = $("#category-input").val();
+  var difficulty = $("#difficulty-input").val();
+  var startTime = $("#start-time-input").val();
+  var endTime = $('#end-time-input').val();
+  var capacity = $("#capacity-input").val();
+  var locationChoice = $("#location-input").val();
+  var date = $("#date-input").val();
+  
 
+  console.log('test', topic);
 
   // Change what is saved in firebase
   database.ref().set({
-    title: title,
+    topic: topic,
     category: category,
     difficulty: difficulty,
-    time: time,
+    startTime: startTime,
+    endTime: endTime,
     capacity: capacity,
-  });
+  })
 });
 
 // Firebase is always watching for changes to the data.
@@ -55,14 +53,24 @@ database.ref().on("value", function(snapshot) {
   console.log(snapshot.val());
 
   // Log the value of the various properties
-  console.log(snapshot.val().title);
-  console.log(snapshot.val().time);
+  console.log(snapshot.topic);
+  console.log(snapshot.val().startTime);
+  console.log(snapshot.val().endTime);
   console.log(snapshot.val().category);
   console.log(snapshot.val().difficulty);
   console.log(snapshot.val().capacity);
+  console.log(snapshot.val().username);
+  console.log(snapshot.val().date);
 
-  // Change the HTML
-  $("#displayed-data").text(snapshot.val().title + " | " + snapshot.val().category + " | " + snapshot.val().difficulty + " | " + snapshot.val().time + " | " + snapshot.val().capacity);
+  // create a dynamic div
+    var cardDiv = $("<div class=''>");
+    var a = $("<p>");
+    a.text(snapshot.val().locationChoice);
+    a.attr('class', "location")
+    a.addClass('data-location', "Real Location")
+    $("#group2019").prepend(a);
+
+ 
 
 //   // If any errors are experienced, log them to console.
 }, function(errorObject) {

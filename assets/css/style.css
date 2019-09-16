@@ -19,6 +19,18 @@ p,a {
     width: 50%;
 }
 
+.buttonDiv {
+    background: linear-gradient(gray,lightgray);
+         border: none;
+         color: black;
+         padding: 1%;
+         text-align: center;
+         text-decoration: none;
+         /* display: inline-block; */
+         margin: 4px 2px;
+         cursor: pointer;
+}
+
 #log-in-list {
     height: 30vh;
     overflow: scroll;
