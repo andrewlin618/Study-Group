@@ -42,10 +42,6 @@ $("#submit-btn").on("click", function(event) {
     startTime: startTime,
     endTime: endTime,
     capacity: capacity,
-    locationChoice: locationChoice,
-    date: date,
-    username: username
-
   })
 });
 
