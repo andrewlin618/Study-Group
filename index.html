@@ -15,7 +15,8 @@
 <body>
     <!-- Navbar: -->
     <nav id="navbar" class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-        <img id='user-image' src="assets/images/icon.png" class="creator-img float-left my-3" width="40px" height="40px">
+        <img id='user-image' src="assets/images/icon.png" class="creator-img float-left my-3" width="40px"
+            height="40px">
         <h4 id="name-shortcut" class="text-light mt-2">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</h4>
         <a class="navbar-brand ml-4" href="#">Study Group</a>
         <button id="navbar-btn" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
@@ -73,19 +74,18 @@
     </div>
 
     <!-- Main page : -->
-    <div id="main-page" class="m-auto" style="width: 95vw; min-height: 90vh; display: none;">
+    <div id="main-page" class="m-auto">
         <br><br><br><br>
         <!-- Study group div -->
         <div class="card my-2 group-div">
             <div class="card-header">
                 <img src="assets/images/andrew-lin.png" class="creator-img float-left my-3" width="70px" height="70px">
-
                 <!-- TODO: Firebase -->
                 <div class="float-left m-2">
                     <h5 class="information">Topic: Fire Base</h5>
                     <p class="information">Sep 18th 18:00</p>
                     <p class="information">North gate Mall</p>
-                    <p class="information">Limit: 10</p>
+                    <p class="information">Capacity: Under 10</p>
                 </div>
                 <div class="float-right m-2" style="text-align: right;height: 100%;">
                     <button class="btn btn-success" style="font-size:12px">
@@ -101,30 +101,32 @@
                 <div id="group2019" class="collapse">
 
                     <div class="card-body">
-                        
+                        <!-- TODO: Firebase -->
+                        <h5 class="card-title">Creator:</h5>
+                        <p>Andrew Lin</p><br>
+                        <h5 class="card-title">Participants:</h5>
+                        <p>Andrew Lin, Joshua Jonas, Swathi Priya</p><br>
                         <!-- TODO: API -->
-                        <h5 class="card-title">FAQ</h5>
+                        <h5 class="card-title">FAQ:</h5>
                         <a class="card-text">(1) API CALL1</a><br>
                         <a class="card-text">(2) API CALL2</a><br>
                         <a class="card-text">(3) API CALL3</a><br>
                         <a class="card-text">(4) API CALL1</a><br>
                         <a class="card-text">(5) API CALL1</a><br>
-                        <br><br>
-                        <h5 class="card-title">Books Recommended</h5>
+                        <br>
+                        <h5 class="card-title">Books Recommended:</h5>
                         <a class="card-text">(1) API CALL1</a><br>
                         <a class="card-text">(2) API CALL2</a><br>
                         <a class="card-text">(3) API CALL3</a><br>
+                        <br>
+                        <h5 class="card-title">Comment</h5>
+                        <p id="chat-box" class="card-text border">let's talk</p>
+                        <br><br><br><br>
                     </div>
                 </div>
             </div>
         </div>
-
-
-
-
     </div>
-
-
 
 
     <!-- Create button -->
@@ -136,8 +138,11 @@
     <!-- Create expanded card -->
     <div id="create-card" class="card">
         <form class="m-4">
+            <div style="text-align:right">
+                <button id="cancel-btn" class="btn btn-secondary">x</button>
+            </div>
             <h5 class="text-center">New Study Group</h5><br>
-            <!-- Category select-->
+            <!-- Category select -->
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
                     <label class="input-group-text" for="inputGroupSelect01">Category</label>
@@ -149,7 +154,7 @@
                     <option value="3">CSS</option>
                 </select>
             </div>
-            <!-- Difficulty select-->
+            <!-- Difficulty select -->
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
                     <label class="input-group-text" for="inputGroupSelect01">Level</label>
@@ -160,7 +165,7 @@
                 </select>
             </div>
 
-            <!-- Capacity select-->
+            <!-- Capacity select -->
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
                     <label class="input-group-text" for="inputGroupSelect01">Capacity</label>
@@ -174,9 +179,17 @@
             </div>
 
             <!-- Discussion Topic -->
-            <div class="form-group">
-                <label>Discussion Topic</label>
-                <input id="topic-input" class="form-control" placeholder="Enter topic">
+            <label>Discussion Topic</label>
+            <div class="form-group w-100 mb-2 d-flex justify-content-between">
+                <input id="topic-input" class="form-control w-75" placeholder="Enter topic">
+                <button id="topic-btn" class="btn btn-primary" style="font-size: 12px">Search</button>
+            </div>
+            <!-- API call for questions -->
+            <div id="questions-show-here" class="form-group">
+            </div>
+
+            <!-- API call for books -->
+            <div id="books-show-here" class="form-group">
             </div>
 
             <!-- Location -->
@@ -186,18 +199,24 @@
             </div>
 
             <!-- TODO:Time -->
-            <div class="form-group">
-                <label>Date</label>
-                <input id="date-input" class="form-control" placeholder="Enter Date">
-            </div>
-            <div class="form-group">
-                <label>Time</label>
-                <input id="time-input" id="date-input" class="form-control" placeholder="Enter Time">
-            </div>
-            <!-- Buttons -->
+            <div class="form-group w-100 mb-2 d-flex justify-content-between">
+                <div class="mr-2" style="width: 40%">
+                    <label>Date</label>
+                    <input id="date-input" type="date" id="date-input" class="form-control" placeholder="Enter Date">
+                </div>
+                <div class="mr-2" style="width: 25%">
+                    <label>Start Time</label>
+                    <input id="start-time-input" type="time" id="time-input" id="date-input" class="form-control"
+                        placeholder="Enter Time">
+                </div>
+                <div class="" style="width: 25%">
+                    <label>End Time</label>
+                    <input id="end-time-input" type="time" id="time-input" id="date-input" class="form-control"
+                        placeholder="Enter Time">
+                </div>
+            </div><br>
             <div style="text-align:right">
-                <button id="submit-btn" class="btn btn-success">Submit</button>
-                <button id="cancel-btn" class="btn btn-secondary">Cancel</button>
+                <button id="submit-btn" class="btn btn-success" style="font-size: 12px">Submit</button>
             </div>
             <div id="books-show-here"></div>
         </form>
