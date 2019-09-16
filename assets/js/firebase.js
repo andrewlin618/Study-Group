@@ -1,5 +1,5 @@
   var firebaseConfig = {
-    apiKey: "AIzaSyCu102M6JFJfKsBqQDVjE-g-xjs5phBqgk",
+    apiKey: "",
     authDomain: "study-group-e87f4.firebaseapp.com",
     databaseURL: "https://study-group-e87f4.firebaseio.com",
     projectId: "study-group-e87f4",
