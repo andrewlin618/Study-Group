@@ -1,12 +1,4 @@
-  var firebaseConfig = {
-    apiKey: "",
-    authDomain: "study-group-e87f4.firebaseapp.com",
-    databaseURL: "https://study-group-e87f4.firebaseio.com",
-    projectId: "study-group-e87f4",
-    storageBucket: "",
-    messagingSenderId: "864676774706",
-    appId: "1:864676774706:web:81b30f57b6370946fecd2b"
-  };
+// add firebase config
 
   // Initialize Firebase
   firebase.initializeApp(firebaseConfig);
