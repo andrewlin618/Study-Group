@@ -1,20 +1,27 @@
-var config = {
-    apiKey: "AIzaSyC9QlOZmk3D4Wt8kAVji0-BO4jsYDvwwLY",
-    authDomain: "fir-multiple-properties.firebaseapp.com",
-    databaseURL: "https://fir-multiple-properties.firebaseio.com",
-    storageBucket: "fir-multiple-properties.appspot.com"
+  var firebaseConfig = {
+    apiKey: "AIzaSyCu102M6JFJfKsBqQDVjE-g-xjs5phBqgk",
+    authDomain: "study-group-e87f4.firebaseapp.com",
+    databaseURL: "https://study-group-e87f4.firebaseio.com",
+    projectId: "study-group-e87f4",
+    storageBucket: "",
+    messagingSenderId: "864676774706",
+    appId: "1:864676774706:web:81b30f57b6370946fecd2b"
   };
 
-  firebase.initializeApp(config);
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+
+  // firebase.initializeApp(config);
 
   // Create a variable to reference the database
   var database = firebase.database();
 
   // Initial Variables (SET the first set IN FIREBASE FIRST)
   // Note remember to create these same variables in Firebase!
-  var name = "";
-  var age = "";
-  var phone = "";
+  var title = "";
+  var category = "";
+  var difficulty = "";
+  var time = "";
 
   // Click Button changes what is stored in firebase
   $("#click-button").on("click", function(event) {
@@ -22,15 +29,17 @@ var config = {
     event.preventDefault();
 
     // Get inputs
-    name = $("#name-input").val().trim();
-    age = $("#age-input").val().trim();
-    phone = $("#phone-input").val().trim();
+    title = $("#title-input").val().trim();
+    category = $("#category-input").val().trim();
+    difficulty = $("#difficulty-input").val().trim();
+    time = $("#time-input").val().trim();
 
     // Change what is saved in firebase
     database.ref().set({
-      name: name,
-      age: age,
-      phone: phone
+      title: title,
+      category: category,
+      difficulty: difficulty,
+      time: time,
     });
   });
 
@@ -42,14 +51,15 @@ var config = {
     console.log(snapshot.val());
 
     // Log the value of the various properties
-    console.log(snapshot.val().name);
-    console.log(snapshot.val().age);
-    console.log(snapshot.val().phone);
+    console.log(snapshot.val().title);
+    console.log(snapshot.val().time);
+    console.log(snapshot.val().category);
+    console.log(snapshot.val().difficulty);
 
     // Change the HTML
-    $("#displayed-data").text(snapshot.val().name + " | " + snapshot.val().age + " | " + snapshot.val().phone);
+    $("#displayed-data").text(snapshot.val().title + " | " + snapshot.val().category + " | " + snapshot.val().difficulty + " | " + snapshot.val().time);
 
-    // If any errors are experienced, log them to console.
+  //   // If any errors are experienced, log them to console.
   }, function(errorObject) {
     console.log("The read failed: " + errorObject.code);
   });

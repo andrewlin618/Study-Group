@@ -1,4 +1,8 @@
-var keyword = "javascript";
+
+
+$("#click-button").on("click", function(event) {
+event.preventDefault();
+var keyword = $("#keyword-input").val();
 var queryURL = "https://api.stackexchange.com/2.2/search?order=desc&sort=activity&site=stackoverflow" + "&intitle=" + keyword;
 
 console.log('url', queryURL);
@@ -20,4 +24,5 @@ $.ajax({
 
     
     
+})
 })
