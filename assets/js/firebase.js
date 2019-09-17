@@ -2,21 +2,13 @@ var key=0;
 var accordionDiv;
 var capacityArray=["No Limit","under 5","under 10","under 15"];
 var firebaseConfig = {
-  // apiKey: "AIzaSyCu102M6JFJfKsBqQDVjE-g-xjs5phBqgk",
-  // authDomain: "study-group-e87f4.firebaseapp.com",
-  // databaseURL: "https://study-group-e87f4.firebaseio.com",
-  // projectId: "study-group-e87f4",
-  // storageBucket: "",
-  // messagingSenderId: "864676774706",
-  // appId: "1:864676774706:web:81b30f57b6370946fecd2b"
-
-  apiKey: "AIzaSyBHMpp3KP1NmBp0unZMFSRPOFEgsqzf-uo",
-  authDomain: "clickcounter-c801c.firebaseapp.com",
-  databaseURL: "https://clickcounter-c801c.firebaseio.com",
-  projectId: "clickcounter-c801c",
+  apiKey: "AIzaSyCu102M6JFJfKsBqQDVjE-g-xjs5phBqgk",
+  authDomain: "study-group-e87f4.firebaseapp.com",
+  databaseURL: "https://study-group-e87f4.firebaseio.com",
+  projectId: "study-group-e87f4",
   storageBucket: "",
-  messagingSenderId: "937174425552",
-  appId: "1:937174425552:web:4416899c8f4814b281a3d5"
+  messagingSenderId: "864676774706",
+  appId: "1:864676774706:web:81b30f57b6370946fecd2b"
 };
 
 // Initialize Firebase
@@ -91,7 +83,7 @@ database.ref("/groupArray/").on("child_added", function(snapshot, prevChildKey) 
     accordionDiv.addClass('accordion');
     learnMoreDiv = $('<div>');
     learnMoreDiv.addClass('collapse');
-    learnMoreDiv.attr("id",snapshot.key);
+    learnMoreDiv.attr("id", snapshot.val().username.replace(/\s/g, "") + snapshot.key);
 
 
 
@@ -148,7 +140,9 @@ database.ref("/groupArray/").on("child_added", function(snapshot, prevChildKey) 
     lrnBtn.addClass("btn btn-secondary expand-btn");
     lrnBtn.attr("style", "font-size:10px");
     lrnBtn.attr("data-toggle", "collapse");
-    lrnBtn.attr("data-target", snapshot.key);
+    lrnBtn.attr("data-target", "#" + snapshot.val().username.replace(/\s/g, "") + snapshot.key);
+    console.log('test', snapshot.val().username.replace(/\s/g, "") + snapshot.key);
+    
     lrnBtn.attr("aria-expanded", "true");
 
     var newBTNlrn = $("<p>");
@@ -175,10 +169,12 @@ database.ref("/groupArray/").on("child_added", function(snapshot, prevChildKey) 
       $(cardHeaderDiv).insertAfter("#"+prevChildKey);
     }
 
-     printLearnMore (snapshot);
+     
     
     accordionDiv.append(learnMoreDiv);
     $('#cardMain').append(accordionDiv);
+
+    printLearnMore (snapshot);
 
 
   //   // If any errors are experienced, log them to console.
@@ -190,10 +186,6 @@ database.ref("/groupArray/").on("child_added", function(snapshot, prevChildKey) 
 retrievingData();
 
 function printLearnMore (snapshot) {
-  console.log('snapshot', snapshot);
-  // console.log('snapshot', snapshot.val().qstns.length);
-  console.log(('username', snapshot.val().username));
-  
   
   var newDivMain = $('<div>');
   newDivMain.addClass('card-body');
@@ -261,9 +253,6 @@ function printLearnMore (snapshot) {
           newDivMain.append(newA)
     }
   }
-
-console.log('print', printLearnMore);
-
   
   learnMoreDiv.append(newDivMain);
 
