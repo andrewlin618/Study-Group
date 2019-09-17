@@ -64,8 +64,6 @@ function saveThisGroup(studyGroup) {
 }
 
 function printThisGroup(studyGroup) {
-    var studyGroupDiv
-
 }
 
 $(".time-information").on("click",function(){

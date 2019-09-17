@@ -148,12 +148,16 @@ database.ref("/groupArray/").on("child_added", function(snapshot, prevChildKey) 
     cardHeaderDiv.append(newDiv);
     cardHeaderDiv.append(newDivBtns);
 
+    $("#cardMain").append(cardHeaderDiv);
+  }
+
     if(key===0){
       $("#cardMain").append(cardHeaderDiv);
     }
     else{
       $(cardHeaderDiv).insertAfter("#"+prevChildKey);
     }
+
   //   // If any errors are experienced, log them to console.
 }, function (errorObject) {
   console.log("The read failed: " + errorObject.code);
