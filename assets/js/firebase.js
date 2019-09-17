@@ -146,7 +146,6 @@ database.ref("/groupArray").on("value", function (snapshot) {
     cardHeaderDiv.append(newDiv);
     cardHeaderDiv.append(newDivBtns);
 
-
     $("#cardMain").append(cardHeaderDiv);
   }
 
