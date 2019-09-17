@@ -44,6 +44,7 @@ $("#submit-btn").on("click", function (event) {
   grpOBJ.startTime = $("#start-time-input").val();
   grpOBJ.endTime = $('#end-time-input').val();
   grpOBJ.username = localStorage.getItem('username');
+  // grpOBJ.participants.push(localStorage.getItem('username'));
 
 
   // groupArrays.push(grpOBJ);
@@ -69,7 +70,7 @@ function saveDataToDB(grpOBJ){
       date: grpOBJ.date,
       startTime: grpOBJ.startTime,
       endTime: grpOBJ.endTime,
-      username:  gtpOBJ.username
+      username:  grpOBJ.username
 
     })
 }
@@ -174,8 +175,10 @@ database.ref("/groupArray/").on("child_added", function(snapshot, prevChildKey) 
       $(cardHeaderDiv).insertAfter("#"+prevChildKey);
     }
 
+     printLearnMore (snapshot);
+    
     accordionDiv.append(learnMoreDiv);
-    $('cardMain').append(accordionDiv);
+    $('#cardMain').append(accordionDiv);
 
 
   //   // If any errors are experienced, log them to console.
@@ -185,3 +188,84 @@ database.ref("/groupArray/").on("child_added", function(snapshot, prevChildKey) 
 }
 
 retrievingData();
+
+function printLearnMore (snapshot) {
+  console.log('snapshot', snapshot);
+  // console.log('snapshot', snapshot.val().qstns.length);
+  console.log(('username', snapshot.val().username));
+  
+  
+  var newDivMain = $('<div>');
+  newDivMain.addClass('card-body');
+  var creatorTitle = $('<h5>');
+  creatorTitle.addClass('card-title');
+  creatorTitle.text('Creator: ');
+  var createName = $('<p>');
+  createName.text(snapshot.val().username);
+  var participantsTitle = $('</h5>');
+  participantsTitle.addClass('card-title');
+  participantsTitle.text('Particiapants: ');
+  var participantList = $('<p>');
+  participantList.text(snapshot.val().participants)
+  var learnMoreBtn = $('<button>');
+  learnMoreBtn.addClass('btn btn-primary join-btn')
+  learnMoreBtn.attr('data-toggle', 'button');
+  learnMoreBtn.attr('aria-pressed', 'false');
+  learnMoreBtn.attr('autocomplete', 'off');
+  learnMoreBtn.text('+ join');
+  var questionList = $('<h5>');
+  questionList.text('FAQ: ');
+
+  newDivMain.append(creatorTitle);
+  newDivMain.append(createName);
+  newDivMain.append('<br>');
+  newDivMain.append(participantsTitle);
+  newDivMain.append(participantList);
+  newDivMain.append(learnMoreBtn);
+  newDivMain.append('<br>');
+  newDivMain.append('<br>');
+  newDivMain.append(questionList);
+
+  if (snapshot.val().qstns) {
+   
+    for (var i = 0; i < snapshot.val().qstns.length; i++){      
+      var newA = $("<a/>");
+          newA.addClass("card-text");
+          newA.text(snapshot.val().qstns[i].keywordTitle);
+          // newA.attr("src",);
+          // newDiv.text(snapshot.val().qstns[i].keywordTitle);
+          newA.attr("href", snapshot.val().qstns[i].keywordURL);
+          newA.attr("target", "_blank");
+          // newA.append(newDiv);
+          // questionList.append(newA)
+          newDivMain.append(newA)
+    }
+  }
+
+  var bookList = $('<h5>');
+  bookList.text('Books Recommended: ');
+
+  newDivMain.append(bookList);
+
+  if (snapshot.val().books) {
+   
+    for (var i = 0; i < snapshot.val().books.length; i++){      
+      var newA = $("<a/>");
+          newA.addClass("card-text");
+          // newA.attr("src",);
+          newA.text(snapshot.val().books[i].bookImg);
+          newA.attr("href", snapshot.val().books[i].info_url);
+          newA.attr("target", "_blank");
+          // newA.append(newDiv);
+          // questionList.append(newA)
+          newDivMain.append(newA)
+    }
+  }
+
+console.log('print', printLearnMore);
+
+  
+  learnMoreDiv.append(newDivMain);
+
+
+}
