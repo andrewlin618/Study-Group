@@ -61,27 +61,11 @@ $('#location-select').on('change', function () {
 
 $(document).on('click', '.expand-btn', function () {
     if ($(this).attr('aria-expanded')==='true'){
-        $(this).html('&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp▲&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp');
+        $(this).html('&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp▲&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp');
     } else{
-        $(this).text('learn more');
+        $(this).text('learn more ▼');
     }
 })
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // ============================= Creat Button ==============================
 
@@ -99,26 +83,28 @@ $(document).on('click', '#cancel-btn', function () {
 
 //Confirm creating study group:
 $(document).on('click', "#submit-btn", function () {
-    var studyGroup = {
-        'group-id':'dynamic',
-        'creator': username,
-        'category': $('#category-input').val(),
-        'difficulty': $('#difficulty-input').val(),
-        'capacity': $('#capacity-input').val(),
-        'topic': $('#topic-input').val(),
-        'location': $('#location-input').val(),
-        'date': $('#date-input').val(),
-        'time': $('#time-input').val(),
-        'questions': ['API1:apple pen pineapple pen', 'API2:apple pen pineapple pen', 'API3:apple pen pineapple pen', 'API4:apple pen pineapple pen', 'API5:apple pen pineapple pen', ],
-        'books': ['Book1: Hello World', 'Book2: Hello World', 'Book3: Hello World', 'Book4: Hello World', 'Book5: Hello World']
+    if ($('#topic-input').val() === ""){
+        alert("Please add discussion topic");
+        return;
     }
-    console.log(studyGroup);
+    if ($('#location-input').val() === ""){
+        alert("Please add location");
+        return;
+    }
+    if ($('#date-input').val() === ""){
+        alert("Please add date");
+        return;
+    }
+    if ($('#start-time-input').val() === ""){
+        alert("Please add start time");
+        return;
+    }
 
     // TODO: Save studyGroup Object to Firebase ,check basicFunctions.js
     saveThisGroup();
 
     // This can be replaced by firebase snapshot
-    printThisGroup(studyGroup);
+    printThisGroup();
 
     $("#create-card").fadeOut();
 })

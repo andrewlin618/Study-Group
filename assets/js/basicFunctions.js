@@ -20,8 +20,7 @@ function launchLoginPage() {
 function launchMainPage() {
     $('#space-holder').hide();
     $('#log-in-page').hide();
-    $('#main-page').show();
-    console.log(username, usernameShortcut, userCategory, userDifficulty, userLocationPreference);
+    $('#main-page').show();    
 }
 
 function logIn() {
@@ -65,8 +64,6 @@ function saveThisGroup(studyGroup) {
 }
 
 function printThisGroup(studyGroup) {
-    var studyGroupDiv
-
 }
 
 $(".time-information").on("click",function(){
