@@ -91,7 +91,7 @@ database.ref("/groupArray/").on("child_added", function(snapshot, prevChildKey) 
     accordionDiv.addClass('accordion');
     learnMoreDiv = $('<div>');
     learnMoreDiv.addClass('collapse');
-    learnMoreDiv.attr("id",snapshot.key);
+    learnMoreDiv.attr("id","lrn"+snapshot.key);
 
 
 
@@ -148,7 +148,7 @@ database.ref("/groupArray/").on("child_added", function(snapshot, prevChildKey) 
     lrnBtn.addClass("btn btn-secondary expand-btn");
     lrnBtn.attr("style", "font-size:10px");
     lrnBtn.attr("data-toggle", "collapse");
-    lrnBtn.attr("data-target", snapshot.key);
+    lrnBtn.attr("data-target", "#lrn"+snapshot.key);
     lrnBtn.attr("aria-expanded", "true");
 
     var newBTNlrn = $("<p>");
@@ -175,10 +175,12 @@ database.ref("/groupArray/").on("child_added", function(snapshot, prevChildKey) 
       $(cardHeaderDiv).insertAfter("#"+prevChildKey);
     }
 
-     printLearnMore (snapshot);
+     
     
     accordionDiv.append(learnMoreDiv);
     $('#cardMain').append(accordionDiv);
+
+    printLearnMore (snapshot);
 
 
   //   // If any errors are experienced, log them to console.
@@ -190,10 +192,6 @@ database.ref("/groupArray/").on("child_added", function(snapshot, prevChildKey) 
 retrievingData();
 
 function printLearnMore (snapshot) {
-  console.log('snapshot', snapshot);
-  // console.log('snapshot', snapshot.val().qstns.length);
-  console.log(('username', snapshot.val().username));
-  
   
   var newDivMain = $('<div>');
   newDivMain.addClass('card-body');
@@ -261,9 +259,6 @@ function printLearnMore (snapshot) {
           newDivMain.append(newA)
     }
   }
-
-console.log('print', printLearnMore);
-
   
   learnMoreDiv.append(newDivMain);
 
