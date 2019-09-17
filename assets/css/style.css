@@ -3,7 +3,7 @@ body {
     background-size: cover;
 }
 
-p,a {
+a,p {
     font-size: 13px;
     margin-bottom: 0%;
 
@@ -57,7 +57,7 @@ p,a {
 }
 
 @media only screen and (max-width: 768px) {
-    p{
+    a,p{
         font-size: 10px;
     }
 

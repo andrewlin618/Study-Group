@@ -1,5 +1,4 @@
-// var keyword = $("#topic-input").val();
-var keyword = "html";
+var keyword;
 var urlStack = "https://api.stackexchange.com/2.2/search?order=desc&sort=activity&site=stackoverflow" + "&intitle=" + keyword;
 var questionsArray = [];
 // Variables for the BOOK API
@@ -14,7 +13,13 @@ var publishers=[];
 
 
 
-$("#topic-btn").click(function () {
+$("#topic-btn").on('click',function () {
+    keyword = $("#topic-input").val();
+    event.preventDefault();
+    $("#questions-show-here").empty();
+    $("#books-show-here").empty();
+    questionsArray = [];
+    booksArray = [];
     callBooksAPI();
     callStackAPI();
 });
@@ -27,8 +32,6 @@ function callStackAPI() {
     }).then(function (response) {
         for (var i = 0; i < 5; i++) {
             var qstnObject = {};
-            var keywordURL = "";
-            var keywordTitle = "";
             qstnObject.keywordURL = response.items[i].link;
             qstnObject.keywordTitle = response.items[i].title;
             questionsArray.push(qstnObject);

@@ -69,4 +69,11 @@ function printThisGroup(studyGroup) {
 
 }
 
+$(".time-information").on("click",function(){
+    alert('add to calender~~~');
+});
 
+
+$(".location-information").on('click',function(){
+    alert('navigation~~~');
+})
