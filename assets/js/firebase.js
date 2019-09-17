@@ -35,8 +35,8 @@ $("#submit-btn").on("click", function (event) {
   grpOBJ.difficulty = $("#difficulty-input option:selected").val();
   grpOBJ.capacity = $("#capacity-input option:selected").val();
   grpOBJ.topic = $("#topic-input").val();
-  grpOBJ.qstns=questionsArray;
-  grpOBJ.books=booksArray;
+  grpOBJ.qstns = questionsArray;
+  grpOBJ.books = booksArray;
   grpOBJ.locationChoice = $("#location-input").val();
   grpOBJ.date = $("#date-input").val();
   grpOBJ.startTime = $("#start-time-input").val();
@@ -44,22 +44,22 @@ $("#submit-btn").on("click", function (event) {
   groupArrays.push(grpOBJ);
 
   var key = grpOBJ.date.replace(/-/g, '') + grpOBJ.startTime.replace(/:/g, '') + grpOBJ.endTime.replace(/:/g, '');
-  
+
   // Change what is saved in firebase
   database.ref("/groupArray").child(key).set(
     {
-    category: grpOBJ.category,
-    difficulty: grpOBJ.difficulty,
-    capacity: grpOBJ.capacity,
-    topic: grpOBJ.topic,
-    qstns: grpOBJ.qstns,
-    books: grpOBJ.books,
-    location: grpOBJ.locationChoice,
-    date: grpOBJ.date,
-    startTime: grpOBJ.startTime,
-    endTime: grpOBJ.endTime
+      category: grpOBJ.category,
+      difficulty: grpOBJ.difficulty,
+      capacity: grpOBJ.capacity,
+      topic: grpOBJ.topic,
+      qstns: grpOBJ.qstns,
+      books: grpOBJ.books,
+      location: grpOBJ.locationChoice,
+      date: grpOBJ.date,
+      startTime: grpOBJ.startTime,
+      endTime: grpOBJ.endTime
 
-  })
+    })
 });
 
 // Firebase is always watching for changes to the data.
@@ -68,41 +68,42 @@ database.ref("/groupArray").on("value", function (snapshot) {
   console.log("Entered reference");
   console.log(snapshot.val());
 
-  for(var i in snapshot.val()){
+  for (var i in snapshot.val()) {
     console.log("This is snapshot");
     console.log(snapshot.val()[i].category);
-    var headerDiv=$("#cardheader");
-    var cardHeaderDiv=$("<div>");
+    var headerDiv = $("#cardheader");
+    var cardHeaderDiv = $("<div>");
     cardHeaderDiv.addClass("card-header");
-    
+
     // -----------------------------
     // -----------------------------
-    var newDiv=$("<div>");
+    var newImg = $("<img>");
+    newImg.attr("src", "assets/images/andrew-lin.png");
+    newImg.addClass("image-information creator-img float-left my-3");
+    // -----------------------------
+    var newDiv = $("<div>");
     newDiv.addClass("float-left m-2");
     // ------------------------------
-    var newImg=$("<img>");
-    newImg.attr("src","assets/images/andrew-lin.png");
-    newImg.addClass("image-information creator-img float-left my-3");
-    // ------------------------------
-    var newH5=$("<h5>");
+
+    var newH5 = $("<h5>");
     newH5.addClass("topic-information");
     newH5.text(snapshot.val()[i].category);
-    
 
-    var newP1=$("<p>");
+
+    var newP1 = $("<p>");
     newP1.addClass("time-information");
     newP1.text(snapshot.val()[i].date);
-    
 
-    var newP2=$("<p>");
+
+    var newP2 = $("<p>");
     newP2.addClass("location-information");
     newP2.text(snapshot.val()[i].location);
-    
 
-    var newP3=$("<p>");
+
+    var newP3 = $("<p>");
     newP3.addClass("capacity-information");
     newP3.text(snapshot.val()[i].capacity);
-    
+
 
     // -----------------------------
     newDiv.append(newH5);
@@ -110,14 +111,43 @@ database.ref("/groupArray").on("value", function (snapshot) {
     newDiv.append(newP2);
     newDiv.append(newP3);
 
+    // ---------------------
+    var newDivBtns = $("<div>");
+    newDivBtns.addClass("float-right m-2");
+    newDivBtns.attr("style", "text-align: right;height: 100%;");
+
+    var topicBtn = $("<button>");
+    topicBtn.addClass("btn btn-success");
+    topicBtn.attr("style", "font-size:12px");
+
+    var newBTNtop = $("<p>");
+    newBTNtop.text("Java");
+    topicBtn.append(newBTNtop);
+
+    var lrnBtn = $("<button>");
+    lrnBtn.addClass("btn btn-secondary expand-btn");
+    lrnBtn.attr("style", "font-size:10px");
+    lrnBtn.attr("data-toggle", "collapse");
+    lrnBtn.attr("data-target", "#group2019");
+    lrnBtn.attr("aria-expanded", "#true");
+
+    var newBTNlrn = $("<p>");
+    newBTNlrn.text("Learn More");
+    lrnBtn.append(newBTNlrn);
+
+
+    newDivBtns.append(topicBtn);
+    newDivBtns.append(lrnBtn);
+
     cardHeaderDiv.append(newImg);
     cardHeaderDiv.append(newDiv);
+    cardHeaderDiv.append(newDivBtns);
 
 
-  $("#cardMain").append(cardHeaderDiv);
+    $("#cardMain").append(cardHeaderDiv);
   }
-  
-  
+
+
 
   //   // If any errors are experienced, log them to console.
 }, function (errorObject) {
