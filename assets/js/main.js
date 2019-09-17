@@ -60,17 +60,10 @@ $('#location-select').on('change', function () {
 // ============================= Main page ==============================
 
 $(document).on('click', '.expand-btn', function () {
-<<<<<<< HEAD
     if ($(this).attr('aria-expanded')==='true'){
         $(this).html('&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp▲&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp');
     } else{
         $(this).text('learn more ▼');
-=======
-    if ($(this).attr('aria-expanded') === 'true') {
-        $(this).html('&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp▲&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp');
-    } else {
-        $(this).text('learn more');
->>>>>>> 9eaca6aea047d97ff741ef5063ec16d604c86333
     }
 })
 
@@ -90,7 +83,6 @@ $(document).on('click', '#cancel-btn', function () {
 
 //Confirm creating study group:
 $(document).on('click', "#submit-btn", function () {
-<<<<<<< HEAD
     if ($('#topic-input').val() === ""){
         alert("Please add discussion topic");
         return;
@@ -106,20 +98,6 @@ $(document).on('click', "#submit-btn", function () {
     if ($('#start-time-input').val() === ""){
         alert("Please add start time");
         return;
-=======
-    var studyGroup = {
-        'group-id': 'dynamic',
-        'creator': username,
-        'category': $('#category-input').val(),
-        'difficulty': $('#difficulty-input').val(),
-        'capacity': $('#capacity-input').val(),
-        'topic': $('#topic-input').val(),
-        'location': $('#location-input').val(),
-        'date': $('#date-input').val(),
-        'time': $('#time-input').val(),
-        'questions': ['API1:apple pen pineapple pen', 'API2:apple pen pineapple pen', 'API3:apple pen pineapple pen', 'API4:apple pen pineapple pen', 'API5:apple pen pineapple pen',],
-        'books': ['Book1: Hello World', 'Book2: Hello World', 'Book3: Hello World', 'Book4: Hello World', 'Book5: Hello World']
->>>>>>> 9eaca6aea047d97ff741ef5063ec16d604c86333
     }
 
     // TODO: Save studyGroup Object to Firebase ,check basicFunctions.js
