@@ -149,7 +149,6 @@ database.ref("/groupArray/").on("child_added", function(snapshot, prevChildKey) 
     cardHeaderDiv.append(newDivBtns);
 
     $("#cardMain").append(cardHeaderDiv);
-  }
 
     if(key===0){
       $("#cardMain").append(cardHeaderDiv);
