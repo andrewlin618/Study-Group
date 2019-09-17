@@ -96,6 +96,7 @@ function callBooksAPI() {
             url: urlLinks + bibToSearch,
             method: "GET"
         }).then(function (links) {
+            console.log(links);
             for (var i = 0; i < bibkeys.length; i++) {
                 var bookOBJ = {};
                 var bookImg = "";

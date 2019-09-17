@@ -77,11 +77,11 @@
     <div id="main-page" class="m-auto">
         <br><br><br><br>
         <!-- Study group div -->
-        <div class="card my-2 group-div">
-            <div class="card-header">
+        <div class="card my-2 group-div" id="cardMain">
+            <!-- <div class="card-header" id="cardheader">
                 <img src="assets/images/andrew-lin.png" class="image-information creator-img float-left my-3" width="70px" height="70px">
-                <!-- TODO: Firebase -->
-                <div class="float-left m-2">
+                TODO: Firebase
+                <div class="float-left m-2" id="topicDetails">
                     <h5 class="topic-information">Topic: Fire Base</h5>
                     <p class="time-information">Sep 18th 18:00</p>
                     <p class="location-information">North gate Mall</p>
@@ -95,8 +95,8 @@
                         data-target="#group2019" aria-expanded="true">
                         learn more
                     </button>
-                </div>
-            </div>
+                </div> -->
+            <!-- </div> -->
             <div class="accordion">
                 <div id="group2019" class="collapse">
 
@@ -171,7 +171,7 @@
                     <label class="input-group-text" for="inputGroupSelect01">Capacity</label>
                 </div>
                 <select id="capacity-input" class="custom-select" id="inputGroupSelect01">
-                    <option selected>No limit</option>
+                    <option value="0"selected>No limit</option>
                     <option value="1">under 5</option>
                     <option value="2">under 10</option>
                     <option value="3">under 15</option>
