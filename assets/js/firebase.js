@@ -1,4 +1,5 @@
 var key=0;
+var accordionDiv;
 var capacityArray=["No Limit","under 5","under 10","under 15"];
 var firebaseConfig = {
   // apiKey: "AIzaSyCu102M6JFJfKsBqQDVjE-g-xjs5phBqgk",
@@ -42,6 +43,9 @@ $("#submit-btn").on("click", function (event) {
   grpOBJ.date = $("#date-input").val();
   grpOBJ.startTime = $("#start-time-input").val();
   grpOBJ.endTime = $('#end-time-input').val();
+  grpOBJ.username = localStorage.getItem('username');
+
+
   // groupArrays.push(grpOBJ);
 
   saveDataToDB(grpOBJ);
@@ -64,7 +68,8 @@ function saveDataToDB(grpOBJ){
       location: grpOBJ.locationChoice,
       date: grpOBJ.date,
       startTime: grpOBJ.startTime,
-      endTime: grpOBJ.endTime
+      endTime: grpOBJ.endTime,
+      username:  gtpOBJ.username
 
     })
 }
@@ -77,6 +82,17 @@ database.ref("/groupArray/").on("child_added", function(snapshot, prevChildKey) 
     var cardHeaderDiv = $("<div>");
     cardHeaderDiv.addClass("card-header");
     cardHeaderDiv.attr("id",snapshot.key);
+
+    //-----------------------------
+    //-----------------------------
+    //For accordian Div
+    accordionDiv = $('<div>');
+    accordionDiv.addClass('accordion');
+    learnMoreDiv = $('<div>');
+    learnMoreDiv.addClass('collapse');
+    learnMoreDiv.attr("id",snapshot.key);
+
+
 
     // -----------------------------
     // -----------------------------
@@ -131,7 +147,7 @@ database.ref("/groupArray/").on("child_added", function(snapshot, prevChildKey) 
     lrnBtn.addClass("btn btn-secondary expand-btn");
     lrnBtn.attr("style", "font-size:10px");
     lrnBtn.attr("data-toggle", "collapse");
-    lrnBtn.attr("data-target", "#group2019");
+    lrnBtn.attr("data-target", snapshot.key);
     lrnBtn.attr("aria-expanded", "true");
 
     var newBTNlrn = $("<p>");
@@ -150,10 +166,16 @@ database.ref("/groupArray/").on("child_added", function(snapshot, prevChildKey) 
 
     if(key===0){
       $("#cardMain").append(cardHeaderDiv);
+   
     }
     else{
       $(cardHeaderDiv).insertAfter("#"+prevChildKey);
     }
+
+    accordionDiv.append(learnMoreDiv);
+    $('cardMain').append(accordionDiv);
+
+
   //   // If any errors are experienced, log them to console.
 }, function (errorObject) {
   console.log("The read failed: " + errorObject.code);
