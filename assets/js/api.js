@@ -32,6 +32,8 @@ function callStackAPI() {
     }).then(function (response) {
         for (var i = 0; i < 5; i++) {
             var qstnObject = {};
+            var keywordURL = "";	
+            var keywordTitle = "";
             qstnObject.keywordURL = response.items[i].link;
             qstnObject.keywordTitle = response.items[i].title;
             questionsArray.push(qstnObject);
