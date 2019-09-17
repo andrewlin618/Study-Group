@@ -1,4 +1,5 @@
 var key=0;
+var accordionDiv;
 var capacityArray=["No Limit","under 5","under 10","under 15"];
 var firebaseConfig = {
   // apiKey: "AIzaSyCu102M6JFJfKsBqQDVjE-g-xjs5phBqgk",
@@ -42,6 +43,10 @@ $("#submit-btn").on("click", function (event) {
   grpOBJ.date = $("#date-input").val();
   grpOBJ.startTime = $("#start-time-input").val();
   grpOBJ.endTime = $('#end-time-input').val();
+  grpOBJ.username = localStorage.getItem('username');
+  // grpOBJ.participants.push(localStorage.getItem('username'));
+
+
   // groupArrays.push(grpOBJ);
 
   saveDataToDB(grpOBJ);
@@ -64,7 +69,8 @@ function saveDataToDB(grpOBJ){
       location: grpOBJ.locationChoice,
       date: grpOBJ.date,
       startTime: grpOBJ.startTime,
-      endTime: grpOBJ.endTime
+      endTime: grpOBJ.endTime,
+      username:  grpOBJ.username
 
     })
 }
@@ -77,6 +83,17 @@ database.ref("/groupArray/").on("child_added", function(snapshot, prevChildKey) 
     var cardHeaderDiv = $("<div>");
     cardHeaderDiv.addClass("card-header");
     cardHeaderDiv.attr("id",snapshot.key);
+
+    //-----------------------------
+    //-----------------------------
+    //For accordian Div
+    accordionDiv = $('<div>');
+    accordionDiv.addClass('accordion');
+    learnMoreDiv = $('<div>');
+    learnMoreDiv.addClass('collapse');
+    learnMoreDiv.attr("id",snapshot.key);
+
+
 
     // -----------------------------
     // -----------------------------
@@ -131,7 +148,7 @@ database.ref("/groupArray/").on("child_added", function(snapshot, prevChildKey) 
     lrnBtn.addClass("btn btn-secondary expand-btn");
     lrnBtn.attr("style", "font-size:10px");
     lrnBtn.attr("data-toggle", "collapse");
-    lrnBtn.attr("data-target", "#group2019");
+    lrnBtn.attr("data-target", snapshot.key);
     lrnBtn.attr("aria-expanded", "true");
 
     var newBTNlrn = $("<p>");
@@ -152,10 +169,17 @@ database.ref("/groupArray/").on("child_added", function(snapshot, prevChildKey) 
 
     if(key===0){
       $("#cardMain").append(cardHeaderDiv);
+   
     }
     else{
       $(cardHeaderDiv).insertAfter("#"+prevChildKey);
     }
+
+     printLearnMore (snapshot);
+    
+    accordionDiv.append(learnMoreDiv);
+    $('#cardMain').append(accordionDiv);
+
 
   //   // If any errors are experienced, log them to console.
 }, function (errorObject) {
@@ -164,3 +188,84 @@ database.ref("/groupArray/").on("child_added", function(snapshot, prevChildKey) 
 }
 
 retrievingData();
+
+function printLearnMore (snapshot) {
+  console.log('snapshot', snapshot);
+  // console.log('snapshot', snapshot.val().qstns.length);
+  console.log(('username', snapshot.val().username));
+  
+  
+  var newDivMain = $('<div>');
+  newDivMain.addClass('card-body');
+  var creatorTitle = $('<h5>');
+  creatorTitle.addClass('card-title');
+  creatorTitle.text('Creator: ');
+  var createName = $('<p>');
+  createName.text(snapshot.val().username);
+  var participantsTitle = $('</h5>');
+  participantsTitle.addClass('card-title');
+  participantsTitle.text('Particiapants: ');
+  var participantList = $('<p>');
+  participantList.text(snapshot.val().participants)
+  var learnMoreBtn = $('<button>');
+  learnMoreBtn.addClass('btn btn-primary join-btn')
+  learnMoreBtn.attr('data-toggle', 'button');
+  learnMoreBtn.attr('aria-pressed', 'false');
+  learnMoreBtn.attr('autocomplete', 'off');
+  learnMoreBtn.text('+ join');
+  var questionList = $('<h5>');
+  questionList.text('FAQ: ');
+
+  newDivMain.append(creatorTitle);
+  newDivMain.append(createName);
+  newDivMain.append('<br>');
+  newDivMain.append(participantsTitle);
+  newDivMain.append(participantList);
+  newDivMain.append(learnMoreBtn);
+  newDivMain.append('<br>');
+  newDivMain.append('<br>');
+  newDivMain.append(questionList);
+
+  if (snapshot.val().qstns) {
+   
+    for (var i = 0; i < snapshot.val().qstns.length; i++){      
+      var newA = $("<a/>");
+          newA.addClass("card-text");
+          newA.text(snapshot.val().qstns[i].keywordTitle);
+          // newA.attr("src",);
+          // newDiv.text(snapshot.val().qstns[i].keywordTitle);
+          newA.attr("href", snapshot.val().qstns[i].keywordURL);
+          newA.attr("target", "_blank");
+          // newA.append(newDiv);
+          // questionList.append(newA)
+          newDivMain.append(newA)
+    }
+  }
+
+  var bookList = $('<h5>');
+  bookList.text('Books Recommended: ');
+
+  newDivMain.append(bookList);
+
+  if (snapshot.val().books) {
+   
+    for (var i = 0; i < snapshot.val().books.length; i++){      
+      var newA = $("<a/>");
+          newA.addClass("card-text");
+          // newA.attr("src",);
+          newA.text(snapshot.val().books[i].bookImg);
+          newA.attr("href", snapshot.val().books[i].info_url);
+          newA.attr("target", "_blank");
+          // newA.append(newDiv);
+          // questionList.append(newA)
+          newDivMain.append(newA)
+    }
+  }
+
+console.log('print', printLearnMore);
+
+  
+  learnMoreDiv.append(newDivMain);
+
+
+}
