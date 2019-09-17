@@ -11,8 +11,6 @@ var firebaseConfig = {
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 
-// firebase.initializeApp(config);
-
 // Create a variable to reference the database
 var database = firebase.database();
 
@@ -30,10 +28,9 @@ $("#submit-btn").on("click", function(event) {
   var capacity = $("#capacity-input").val();
   var locationChoice = $("#location-input").val();
   var date = $("#date-input").val();
+  var username = localStorage.getItem('username');
+   
   
-
-  console.log('test', topic);
-
   // Change what is saved in firebase
   database.ref().set({
     topic: topic,
@@ -42,11 +39,13 @@ $("#submit-btn").on("click", function(event) {
     startTime: startTime,
     endTime: endTime,
     capacity: capacity,
-    locationChoice: locationChoice,
     date: date,
+    locationChoice: locationChoice,
     username: username
-
   })
+
+ 
+
 });
 
 // Firebase is always watching for changes to the data.
@@ -57,26 +56,42 @@ database.ref().on("value", function(snapshot) {
   console.log(snapshot.val());
 
   // Log the value of the various properties
-  console.log(snapshot.topic);
-  console.log(snapshot.val().startTime);
-  console.log(snapshot.val().endTime);
-  console.log(snapshot.val().category);
-  console.log(snapshot.val().difficulty);
-  console.log(snapshot.val().capacity);
-  console.log(snapshot.val().username);
-  console.log(snapshot.val().date);
+  console.log('starttime', snapshot.val().startTime);
+  console.log('endtime', snapshot.val().endTime);
+  console.log('catergory', snapshot.val().category);
+  console.log('difficulty', snapshot.val().difficulty);
+  console.log('capacity', snapshot.val().capacity);
+  console.log('username', snapshot.val().username);
+  console.log('date', snapshot.val().date);
+  console.log('locationChoice', snapshot.val().locationChoice);
 
-  // create a dynamic div
-    var cardDiv = $("<div class=''>");
-    var a = $("<p>");
-    a.text(snapshot.val().locationChoice);
-    a.attr('class', "location")
-    a.addClass('data-location', "Real Location")
-    $("#group2019").prepend(a);
-
- 
-
-//   // If any errors are experienced, log them to console.
+  // If any errors are experienced, log them to console.
 }, function(errorObject) {
   console.log("The read failed: " + errorObject.code);
 });
+
+  // create a dynamic div
+    $("#submit-btn").on("click", function(event) {
+  //     // Prevent the page from refreshing
+      event.preventDefault();
+
+  var imgURL = "assets/images/andrew-lin.png";
+  var newCard = $("<div class='card my-2 group-div'>");
+  var imgIcon = $("<img>").attr("src", imgURL).attr("class", "image-information creator-img float-left my-3").css("width", "70px").css("height", '70px');
+  var hFive = $("<h5>").text("Title: " + snapshot.val().topic);
+  var pOne = $("<p>").text(snapshot.val().date + " | " + snapshot.val().startTime);
+  newCard.append(hFive);
+  newCard.append(imgIcon);
+  newCard.append(pOne);
+
+  console.log('new card',  newCard);
+  
+
+
+  //   // $(".topic-information").text(topic);
+  //   // var a = $("<p>");
+  //   // a.text(snapshot.val().locationChoice);
+  //   // a.attr('class', "location")
+  //   // a.addClass('data-location', "Real Location")
+  //   // $("#group2019").prepend(a);
+    })
