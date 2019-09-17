@@ -1,4 +1,4 @@
-var groupArrays = [];
+var key=0;
 var capacityArray=["No Limit","under 5","under 10","under 15"];
 var firebaseConfig = {
   // apiKey: "AIzaSyCu102M6JFJfKsBqQDVjE-g-xjs5phBqgk",
@@ -42,9 +42,15 @@ $("#submit-btn").on("click", function (event) {
   grpOBJ.date = $("#date-input").val();
   grpOBJ.startTime = $("#start-time-input").val();
   grpOBJ.endTime = $('#end-time-input').val();
-  groupArrays.push(grpOBJ);
+  // groupArrays.push(grpOBJ);
 
-  var key = grpOBJ.date.replace(/-/g, '') + grpOBJ.startTime.replace(/:/g, '') + grpOBJ.endTime.replace(/:/g, '');
+  saveDataToDB(grpOBJ);
+  // retrievingData(key);
+
+});
+
+function saveDataToDB(grpOBJ){
+  key = grpOBJ.date.replace(/-/g, '') + grpOBJ.startTime.replace(/:/g, '') + grpOBJ.endTime.replace(/:/g, '');
 
   // Change what is saved in firebase
   database.ref("/groupArray").child(key).set(
@@ -61,20 +67,16 @@ $("#submit-btn").on("click", function (event) {
       endTime: grpOBJ.endTime
 
     })
-});
+}
 
+function retrievingData(){
 // Firebase is always watching for changes to the data.
 // When changes occurs it will print them to console and html
-database.ref("/groupArray").on("value", function (snapshot) {
-  console.log("Entered reference");
-  console.log(snapshot.val());
-
-  for (var i in snapshot.val()) {
-    console.log("This is snapshot");
-    console.log(snapshot.val()[i].category);
-    var headerDiv = $("#cardheader");
+database.ref("/groupArray/").on("child_added", function(snapshot, prevChildKey) {
+  
     var cardHeaderDiv = $("<div>");
     cardHeaderDiv.addClass("card-header");
+    cardHeaderDiv.attr("id",snapshot.key);
 
     // -----------------------------
     // -----------------------------
@@ -88,22 +90,22 @@ database.ref("/groupArray").on("value", function (snapshot) {
 
     var newH5 = $("<h5>");
     newH5.addClass("topic-information");
-    newH5.text(snapshot.val()[i].category);
+    newH5.text(snapshot.val().category);
 
 
     var newP1 = $("<p>");
     newP1.addClass("time-information");
-    newP1.text(snapshot.val()[i].date);
+    newP1.text(snapshot.val().date);
 
 
     var newP2 = $("<p>");
     newP2.addClass("location-information");
-    newP2.text(snapshot.val()[i].location);
+    newP2.text(snapshot.val().location);
 
 
     var newP3 = $("<p>");
     newP3.addClass("capacity-information");
-    newP3.text(capacityArray[snapshot.val()[i].capacity]);
+    newP3.text(capacityArray[snapshot.val().capacity]);
 
 
     // -----------------------------
@@ -122,7 +124,7 @@ database.ref("/groupArray").on("value", function (snapshot) {
     topicBtn.attr("style", "font-size:12px");
 
     var newBTNtop = $("<p>");
-    newBTNtop.text(snapshot.val()[i].category);
+    newBTNtop.text(snapshot.val().category);
     topicBtn.append(newBTNtop);
 
     var lrnBtn = $("<button>");
@@ -146,12 +148,24 @@ database.ref("/groupArray").on("value", function (snapshot) {
     cardHeaderDiv.append(newDiv);
     cardHeaderDiv.append(newDivBtns);
 
+<<<<<<< HEAD
     $("#cardMain").append(cardHeaderDiv);
   }
 
 
 
+=======
+    if(key===0){
+      $("#cardMain").append(cardHeaderDiv);
+    }
+    else{
+      $(cardHeaderDiv).insertAfter("#"+prevChildKey);
+    }
+>>>>>>> 9eaca6aea047d97ff741ef5063ec16d604c86333
   //   // If any errors are experienced, log them to console.
 }, function (errorObject) {
   console.log("The read failed: " + errorObject.code);
 });
+}
+
+retrievingData();

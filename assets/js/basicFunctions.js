@@ -20,8 +20,7 @@ function launchLoginPage() {
 function launchMainPage() {
     $('#space-holder').hide();
     $('#log-in-page').hide();
-    $('#main-page').show();
-    console.log(username, usernameShortcut, userCategory, userDifficulty, userLocationPreference);
+    $('#main-page').show();    
 }
 
 function logIn() {
