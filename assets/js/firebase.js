@@ -1,4 +1,5 @@
 var groupArrays = [];
+var capacityArray=["No Limit","under 5","under 10","under 15"];
 var firebaseConfig = {
   // apiKey: "AIzaSyCu102M6JFJfKsBqQDVjE-g-xjs5phBqgk",
   // authDomain: "study-group-e87f4.firebaseapp.com",
@@ -102,7 +103,7 @@ database.ref("/groupArray").on("value", function (snapshot) {
 
     var newP3 = $("<p>");
     newP3.addClass("capacity-information");
-    newP3.text(snapshot.val()[i].capacity);
+    newP3.text(capacityArray[snapshot.val()[i].capacity]);
 
 
     // -----------------------------
@@ -121,7 +122,7 @@ database.ref("/groupArray").on("value", function (snapshot) {
     topicBtn.attr("style", "font-size:12px");
 
     var newBTNtop = $("<p>");
-    newBTNtop.text("Java");
+    newBTNtop.text(snapshot.val()[i].category);
     topicBtn.append(newBTNtop);
 
     var lrnBtn = $("<button>");
@@ -129,7 +130,7 @@ database.ref("/groupArray").on("value", function (snapshot) {
     lrnBtn.attr("style", "font-size:10px");
     lrnBtn.attr("data-toggle", "collapse");
     lrnBtn.attr("data-target", "#group2019");
-    lrnBtn.attr("aria-expanded", "#true");
+    lrnBtn.attr("aria-expanded", "true");
 
     var newBTNlrn = $("<p>");
     newBTNlrn.text("Learn More");
@@ -137,6 +138,8 @@ database.ref("/groupArray").on("value", function (snapshot) {
 
 
     newDivBtns.append(topicBtn);
+    newDivBtns.append("<br/>");
+    newDivBtns.append("<br>");
     newDivBtns.append(lrnBtn);
 
     cardHeaderDiv.append(newImg);
