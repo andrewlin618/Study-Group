@@ -1,25 +1,28 @@
 var keyword;
-var urlStack = "https://api.stackexchange.com/2.2/search?order=desc&sort=activity&site=stackoverflow" + "&intitle=" + keyword;
+var urlStack;
 var questionsArray = [];
 // Variables for the BOOK API
 // -------------------------------//
 var bibkeys = [];
-var urlIBN = "http://openlibrary.org/search.json?title=" + keyword;
+var urlIBN;
 var urlLinks = "https://openlibrary.org/api/books?format=json&bibkeys=";
 var booksArray = [];
-var publishers=[];
+var publishers = [];
 // -------------------------------//
 // -------------------------------//
 
 
 
-$("#topic-btn").on('click',function () {
+$("#topic-btn").on('click', function () {
     keyword = $("#topic-input").val();
+    urlStack = "https://api.stackexchange.com/2.2/search?order=desc&sort=activity&site=stackoverflow" + "&intitle=" + keyword;
+    urlIBN = "http://openlibrary.org/search.json?title=" + keyword;
     event.preventDefault();
     $("#questions-show-here").empty();
     $("#books-show-here").empty();
     questionsArray = [];
     booksArray = [];
+    bibkeys = [];
     callBooksAPI();
     callStackAPI();
 });
@@ -32,7 +35,7 @@ function callStackAPI() {
     }).then(function (response) {
         for (var i = 0; i < 5; i++) {
             var qstnObject = {};
-            var keywordURL = "";	
+            var keywordURL = "";
             var keywordTitle = "";
             qstnObject.keywordURL = response.items[i].link;
             qstnObject.keywordTitle = response.items[i].title;
@@ -72,9 +75,16 @@ function callBooksAPI() {
         method: "GET"
     }).then(function (response) {
         var bibToSearch = '';
-        for (var i = 0; i < 3; i++) {
+        var length = 0;
+        if (JSON.parse(response).docs.length <= 3) {
+            length = JSON.parse(response).docs.length;
+        }
+        else {
+            length = 3;
+        }
+        for (var i = 0; i < length; i++) {
             if (i === 0) {
-                bibToSearch = (JSON.parse(response).docs[i].isbn[i]);
+                bibToSearch = (JSON.parse(response).docs[i].isbn[0]);
             }
             else {
                 bibToSearch = bibToSearch + "," + (JSON.parse(response).docs[i].isbn[0]);
@@ -86,15 +96,15 @@ function callBooksAPI() {
             url: urlLinks + bibToSearch,
             method: "GET"
         }).then(function (links) {
-
             for (var i = 0; i < bibkeys.length; i++) {
-                var bookOBJ={};
-                var bookImg="";
-                var info_url="";
-                bookOBJ.bookImg=publishers[i];
-                bookOBJ.info_url=links[bibkeys[i]].info_url;
-                console.log(bookOBJ);
-                booksArray.push(bookOBJ);
+                var bookOBJ = {};
+                var bookImg = "";
+                var info_url = "";
+                if (links[bibkeys[i]]) {
+                    bookOBJ.bookImg = publishers[i];
+                    bookOBJ.info_url = links[bibkeys[i]].info_url;
+                    booksArray.push(bookOBJ);
+                }
             }
             showBooks(booksArray);
         })
