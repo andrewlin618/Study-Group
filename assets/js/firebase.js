@@ -1,5 +1,6 @@
 var key = 0;
 var accordionDiv;
+var participantsList = [];
 var capacityArray = ["No Limit", "under 5", "under 10", "under 15"];
 var firebaseConfig = {
   apiKey: "AIzaSyCu102M6JFJfKsBqQDVjE-g-xjs5phBqgk",
@@ -22,7 +23,13 @@ var database = firebase.database();
 // Click Button changes what is stored in firebase
 $("#submit-btn").on("click", function (event) {
 
+  var validate = validation();
   event.preventDefault();
+  if (!validate) {
+    return;
+  }
+  $("#create-card").fadeOut();
+  $('#create-btn').show();
   var grpOBJ = {};
 
   grpOBJ.category = $("#category-input option:selected").text();
@@ -42,6 +49,8 @@ $("#submit-btn").on("click", function (event) {
 
   saveDataToDB(grpOBJ);
   // retrievingData(key);
+
+  clearForm();
 
 });
 
@@ -73,7 +82,6 @@ function retrievingData() {
 
     var cardHeaderDiv = $("<div>");
     cardHeaderDiv.addClass("card-header");
-    cardHeaderDiv.attr("id", snapshot.key);
 
     //-----------------------------
     //-----------------------------
@@ -108,25 +116,19 @@ function retrievingData() {
     var dateEntire = snapshot.val().date
     var date = dateShorten(dateEntire);
 
-    // + "  " + snapshot.val().startTime + '-' + snapshot.val().endTime;
     if (snapshot.val().endTime === '') {
       newP1.html(date + '&nbsp&nbsp&nbsp' + snapshot.val().startTime);
     } else {
       newP1.html(date + '&nbsp&nbsp&nbsp' + snapshot.val().startTime + '-' + snapshot.val().endTime);
     }
 
-
-
-
     var newP2 = $("<p>");
     newP2.addClass("location-information");
     newP2.text(snapshot.val().location);
 
-
     var newP3 = $("<p>");
     newP3.addClass("capacity-information");
     newP3.text(capacityArray[snapshot.val().capacity]);
-
 
     // -----------------------------
     newDiv.append(newH5);
@@ -139,10 +141,15 @@ function retrievingData() {
     newDivBtns.addClass("float-right m-2");
     newDivBtns.attr("style", "text-align: right;height: 100%;");
 
+    var deleteBtn = $("<button>");
+    deleteBtn.attr("style", "font-size:10px");
+    deleteBtn.text("X");
+
+
     var topicBtn = $("<button>");
     topicBtn.attr("style", "font-size:10px");
     topicBtn.text(snapshot.val().category);
-    console.log('=====:' + snapshot.val().participants);
+
     switch (snapshot.val().category) {
       case 'General':
         topicBtn.addClass("btn-dark");
@@ -166,11 +173,10 @@ function retrievingData() {
     lrnBtn.attr("aria-expanded", "true");
 
     lrnBtn.text('more ▼')
-    // var newBTNlrn = $("<p>");
-    // newBTNlrn.text("Learn More");
-    // lrnBtn.append(newBTNlrn);
 
-
+    newDivBtns.append(deleteBtn);
+    newDivBtns.append("<br/>");
+    newDivBtns.append("<br>");
     newDivBtns.append(topicBtn);
     newDivBtns.append("<br/>");
     newDivBtns.append("<br>");
@@ -179,30 +185,26 @@ function retrievingData() {
     cardHeaderDiv.append(newImg);
     cardHeaderDiv.append(newDiv);
     cardHeaderDiv.append(newDivBtns);
-    
+
     var groupDiv = $('<div>');
     groupDiv.addClass('card my-2 group-div');
+    groupDiv.attr("id", snapshot.key);
 
     groupDiv.append(cardHeaderDiv);
-
-    if (key === 0) {
-      groupDiv.append(cardHeaderDiv);
-
-    } else {
-      $(cardHeaderDiv).insertAfter("#" + prevChildKey);
-    }
-
-
-
     accordionDiv.append(learnMoreDiv);
     groupDiv.append(accordionDiv);
 
-    $('#main-page').append(groupDiv);
+    if (prevChildKey === null) {
+
+      $('#main-page').prepend(groupDiv);
+    }
+    else {
+      $(groupDiv).insertAfter("#" + prevChildKey);
+    }
+
 
     printLearnMore(snapshot);
 
-
-    //   // If any errors are experienced, log them to console.
   }, function (errorObject) {
     console.log("The read failed: " + errorObject.code);
   });
@@ -223,16 +225,16 @@ function printLearnMore(snapshot) {
   participantsTitle.addClass('card-title');
   participantsTitle.text('Participants: ');
   var participantList = $('<p>');
-  participantList.attr('id','participant-'+snapshot.key)
+  participantList.attr('id', 'participant-' + snapshot.key)
   participantList.text(snapshot.val().participants)
   var joinBtn = $('<button>');
   joinBtn.addClass('btn btn-primary join-btn')
   joinBtn.attr('data-toggle', 'button');
   joinBtn.attr('aria-pressed', 'false');
   joinBtn.attr('autocomplete', 'off');
-  joinBtn.attr('data-target', 'participant'+snapshot.key);
-
-  console.log("fqqqqqq:" + 'participant-'+snapshot.key);
+  joinBtn.attr('data-target', 'participant' + snapshot.key);
+  joinBtn.attr("id", "join-" + snapshot.key);
+  console.log("fqqqqqq:" + 'participant-' + snapshot.key);
 
   var joinText = $('<p>');
   joinText.text('+ join');
@@ -293,10 +295,20 @@ function printLearnMore(snapshot) {
 
 }
 
-$(".join-btn").on("click", function (event) {
-  console.log($(this).attr('data-target'));
-  // groupArrays.push(grpOBJ);
+$(document).on('click', '.join-btn', function () {
+  var id = ($(this)[0].id).split('-');
+  var part = $('#participant-' + id[1]);
+  if (part.text().split(',').indexOf(localStorage.getItem('username')) > -1) {
+    var parties = part.text(part.text() + " , " + localStorage.getItem('username'));
+    updateFirebase(id[1], parties[0].textContent);
+  }
+  else {
+    alert("you are already a member");
+  }
+});
 
-  saveDataToDB(grpOBJ);
-  // retrievingData(key);
-})
+function updateFirebase(key, parties) {
+  database.ref("/groupArray/" + key).update({
+    participants: parties.split(",")
+  })
+};
