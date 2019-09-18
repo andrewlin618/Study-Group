@@ -61,9 +61,9 @@ $('#location-select').on('change', function () {
 
 $(document).on('click', '.expand-btn', function () {
     if ($(this).attr('aria-expanded')==='true'){
-        $(this).html('&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp▲&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp');
+        $(this).html('&nbsp&nbsp&nbsp&nbsp&nbsp▲&nbsp&nbsp&nbsp&nbsp&nbsp');
     } else{
-        $(this).text('learn more ▼');
+        $(this).text('more ▼');
     }
 })
 
