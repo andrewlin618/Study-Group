@@ -1,6 +1,6 @@
-var key=0;
+var key = 0;
 var accordionDiv;
-var capacityArray=["No Limit","under 5","under 10","under 15"];
+var capacityArray = ["No Limit", "under 5", "under 10", "under 15"];
 var firebaseConfig = {
   apiKey: "AIzaSyCu102M6JFJfKsBqQDVjE-g-xjs5phBqgk",
   authDomain: "study-group-e87f4.firebaseapp.com",
@@ -36,8 +36,7 @@ $("#submit-btn").on("click", function (event) {
   grpOBJ.startTime = $("#start-time-input").val();
   grpOBJ.endTime = $('#end-time-input').val();
   grpOBJ.username = localStorage.getItem('username');
-  // grpOBJ.participants.push(localStorage.getItem('username'));
-
+  grpOBJ.participants = [localStorage.getItem('username')];
 
   // groupArrays.push(grpOBJ);
 
@@ -46,39 +45,39 @@ $("#submit-btn").on("click", function (event) {
 
 });
 
-function saveDataToDB(grpOBJ){
+function saveDataToDB(grpOBJ) {
   key = grpOBJ.date.replace(/-/g, '') + grpOBJ.startTime.replace(/:/g, '') + grpOBJ.endTime.replace(/:/g, '');
 
   // Change what is saved in firebase
-  database.ref("/groupArray").child(key).set(
-    {
-      category: grpOBJ.category,
-      difficulty: grpOBJ.difficulty,
-      capacity: grpOBJ.capacity,
-      topic: grpOBJ.topic,
-      qstns: grpOBJ.qstns,
-      books: grpOBJ.books,
-      location: grpOBJ.locationChoice,
-      date: grpOBJ.date,
-      startTime: grpOBJ.startTime,
-      endTime: grpOBJ.endTime,
-      username:  grpOBJ.username
-
-    })
+  database.ref("/groupArray").child(key).set({
+    category: grpOBJ.category,
+    difficulty: grpOBJ.difficulty,
+    capacity: grpOBJ.capacity,
+    topic: grpOBJ.topic,
+    qstns: grpOBJ.qstns,
+    books: grpOBJ.books,
+    location: grpOBJ.locationChoice,
+    date: grpOBJ.date,
+    startTime: grpOBJ.startTime,
+    endTime: grpOBJ.endTime,
+    username: grpOBJ.username,
+    participants: grpOBJ.participants
+  })
 }
 
-function retrievingData(){
-// Firebase is always watching for changes to the data.
-// When changes occurs it will print them to console and html
-database.ref("/groupArray/").on("child_added", function(snapshot, prevChildKey) {
-  
+
+function retrievingData() {
+  // Firebase is always watching for changes to the data.
+  // When changes occurs it will print them to console and html
+  database.ref("/groupArray/").on("child_added", function (snapshot, prevChildKey) {
+
     var cardHeaderDiv = $("<div>");
     cardHeaderDiv.addClass("card-header");
-    cardHeaderDiv.attr("id",snapshot.key);
+    cardHeaderDiv.attr("id", snapshot.key);
 
     //-----------------------------
     //-----------------------------
-    //For accordian Div
+    //For accordion Div
     accordionDiv = $('<div>');
     accordionDiv.addClass('accordion');
     learnMoreDiv = $('<div>');
@@ -99,12 +98,24 @@ database.ref("/groupArray/").on("child_added", function(snapshot, prevChildKey) 
 
     var newH5 = $("<h5>");
     newH5.addClass("topic-information");
-    newH5.text(snapshot.val().category);
+    newH5.text('# ' + snapshot.val().topic);
 
 
     var newP1 = $("<p>");
     newP1.addClass("time-information");
-    newP1.text(snapshot.val().date);
+    newP1.css("font-weight", 'bold');
+
+    var dateEntire = snapshot.val().date
+    var date = dateShorten(dateEntire);
+
+    // + "  " + snapshot.val().startTime + '-' + snapshot.val().endTime;
+    if (snapshot.val().endTime === '') {
+      newP1.html(date + '&nbsp&nbsp&nbsp' + snapshot.val().startTime);
+    } else {
+      newP1.html(date + '&nbsp&nbsp&nbsp' + snapshot.val().startTime + '-' + snapshot.val().endTime);
+    }
+
+
 
 
     var newP2 = $("<p>");
@@ -129,25 +140,35 @@ database.ref("/groupArray/").on("child_added", function(snapshot, prevChildKey) 
     newDivBtns.attr("style", "text-align: right;height: 100%;");
 
     var topicBtn = $("<button>");
-    topicBtn.addClass("btn btn-success");
-    topicBtn.attr("style", "font-size:12px");
-
-    var newBTNtop = $("<p>");
-    newBTNtop.text(snapshot.val().category);
-    topicBtn.append(newBTNtop);
+    topicBtn.attr("style", "font-size:10px");
+    topicBtn.text(snapshot.val().category);
+    console.log('=====:' + snapshot.val().participants);
+    switch (snapshot.val().category) {
+      case 'General':
+        topicBtn.addClass("btn-dark");
+        break;
+      case 'JavaScript':
+        topicBtn.addClass("btn-warning");
+        break;
+      case 'HTML':
+        topicBtn.addClass("btn-info");
+        break;
+      case 'CSS':
+        topicBtn.addClass("btn-danger");
+        break;
+    }
 
     var lrnBtn = $("<button>");
     lrnBtn.addClass("btn btn-secondary expand-btn");
     lrnBtn.attr("style", "font-size:10px");
     lrnBtn.attr("data-toggle", "collapse");
     lrnBtn.attr("data-target", "#" + snapshot.val().username.replace(/\s/g, "") + snapshot.key);
-    console.log('test', snapshot.val().username.replace(/\s/g, "") + snapshot.key);
-    
     lrnBtn.attr("aria-expanded", "true");
 
-    var newBTNlrn = $("<p>");
-    newBTNlrn.text("Learn More");
-    lrnBtn.append(newBTNlrn);
+    lrnBtn.text('more ▼')
+    // var newBTNlrn = $("<p>");
+    // newBTNlrn.text("Learn More");
+    // lrnBtn.append(newBTNlrn);
 
 
     newDivBtns.append(topicBtn);
@@ -158,35 +179,39 @@ database.ref("/groupArray/").on("child_added", function(snapshot, prevChildKey) 
     cardHeaderDiv.append(newImg);
     cardHeaderDiv.append(newDiv);
     cardHeaderDiv.append(newDivBtns);
-
-    $("#cardMain").append(cardHeaderDiv);
-
-    if(key===0){
-      $("#cardMain").append(cardHeaderDiv);
-   
-    }
-    else{
-      $(cardHeaderDiv).insertAfter("#"+prevChildKey);
-    }
-
-     
     
+    var groupDiv = $('<div>');
+    groupDiv.addClass('card my-2 group-div');
+
+    groupDiv.append(cardHeaderDiv);
+
+    if (key === 0) {
+      groupDiv.append(cardHeaderDiv);
+
+    } else {
+      $(cardHeaderDiv).insertAfter("#" + prevChildKey);
+    }
+
+
+
     accordionDiv.append(learnMoreDiv);
-    $('#cardMain').append(accordionDiv);
+    groupDiv.append(accordionDiv);
 
-    printLearnMore (snapshot);
+    $('#main-page').append(groupDiv);
+
+    printLearnMore(snapshot);
 
 
-  //   // If any errors are experienced, log them to console.
-}, function (errorObject) {
-  console.log("The read failed: " + errorObject.code);
-});
+    //   // If any errors are experienced, log them to console.
+  }, function (errorObject) {
+    console.log("The read failed: " + errorObject.code);
+  });
 }
 
 retrievingData();
 
-function printLearnMore (snapshot) {
-  
+function printLearnMore(snapshot) {
+
   var newDivMain = $('<div>');
   newDivMain.addClass('card-body');
   var creatorTitle = $('<h5>');
@@ -194,17 +219,25 @@ function printLearnMore (snapshot) {
   creatorTitle.text('Creator: ');
   var createName = $('<p>');
   createName.text(snapshot.val().username);
-  var participantsTitle = $('</h5>');
+  var participantsTitle = $('<h5>');
   participantsTitle.addClass('card-title');
-  participantsTitle.text('Particiapants: ');
+  participantsTitle.text('Participants: ');
   var participantList = $('<p>');
+  participantList.attr('id','participant-'+snapshot.key)
   participantList.text(snapshot.val().participants)
-  var learnMoreBtn = $('<button>');
-  learnMoreBtn.addClass('btn btn-primary join-btn')
-  learnMoreBtn.attr('data-toggle', 'button');
-  learnMoreBtn.attr('aria-pressed', 'false');
-  learnMoreBtn.attr('autocomplete', 'off');
-  learnMoreBtn.text('+ join');
+  var joinBtn = $('<button>');
+  joinBtn.addClass('btn btn-primary join-btn')
+  joinBtn.attr('data-toggle', 'button');
+  joinBtn.attr('aria-pressed', 'false');
+  joinBtn.attr('autocomplete', 'off');
+  joinBtn.attr('data-target', 'participant'+snapshot.key);
+
+  console.log("fqqqqqq:" + 'participant-'+snapshot.key);
+
+  var joinText = $('<p>');
+  joinText.text('+ join');
+  joinBtn.append(joinText);
+
   var questionList = $('<h5>');
   questionList.text('FAQ: ');
 
@@ -213,24 +246,25 @@ function printLearnMore (snapshot) {
   newDivMain.append('<br>');
   newDivMain.append(participantsTitle);
   newDivMain.append(participantList);
-  newDivMain.append(learnMoreBtn);
+  newDivMain.append('<br>');
+  newDivMain.append(joinBtn);
   newDivMain.append('<br>');
   newDivMain.append('<br>');
   newDivMain.append(questionList);
 
   if (snapshot.val().qstns) {
-   
-    for (var i = 0; i < snapshot.val().qstns.length; i++){      
+
+    for (var i = 0; i < snapshot.val().qstns.length; i++) {
       var newA = $("<a/>");
-          newA.addClass("card-text");
-          newA.text(snapshot.val().qstns[i].keywordTitle);
-          // newA.attr("src",);
-          // newDiv.text(snapshot.val().qstns[i].keywordTitle);
-          newA.attr("href", snapshot.val().qstns[i].keywordURL);
-          newA.attr("target", "_blank");
-          // newA.append(newDiv);
-          // questionList.append(newA)
-          newDivMain.append(newA)
+      newA.addClass("card-text");
+      newA.text(snapshot.val().qstns[i].keywordTitle);
+      // newA.attr("src",);
+      // newDiv.text(snapshot.val().qstns[i].keywordTitle);
+      newA.attr("href", snapshot.val().qstns[i].keywordURL);
+      newA.attr("target", "_blank");
+      // newA.append(newDiv);
+      // questionList.append(newA)
+      newDivMain.append(newA)
     }
   }
 
@@ -240,21 +274,29 @@ function printLearnMore (snapshot) {
   newDivMain.append(bookList);
 
   if (snapshot.val().books) {
-   
-    for (var i = 0; i < snapshot.val().books.length; i++){      
+
+    for (var i = 0; i < snapshot.val().books.length; i++) {
       var newA = $("<a/>");
-          newA.addClass("card-text");
-          // newA.attr("src",);
-          newA.text(snapshot.val().books[i].bookImg);
-          newA.attr("href", snapshot.val().books[i].info_url);
-          newA.attr("target", "_blank");
-          // newA.append(newDiv);
-          // questionList.append(newA)
-          newDivMain.append(newA)
+      newA.addClass("card-text");
+      // newA.attr("src",);
+      newA.text(snapshot.val().books[i].bookImg);
+      newA.attr("href", snapshot.val().books[i].info_url);
+      newA.attr("target", "_blank");
+      // newA.append(newDiv);
+      // questionList.append(newA)
+      newDivMain.append(newA)
     }
   }
-  
+
   learnMoreDiv.append(newDivMain);
 
 
 }
+
+$(".join-btn").on("click", function (event) {
+  console.log($(this).attr('data-target'));
+  // groupArrays.push(grpOBJ);
+
+  saveDataToDB(grpOBJ);
+  // retrievingData(key);
+})
