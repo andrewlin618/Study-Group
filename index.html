@@ -171,9 +171,9 @@
             <!-- Category select -->
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
-                    <label class="input-group-text" for="inputGroupSelect01">Category</label>
+                    <label class="input-group-text" for="category-input">Category</label>
                 </div>
-                <select id="category-input" class="custom-select" id="inputGroupSelect01">
+                <select id="category-input" class="custom-select">
                     <option selected>General</option>
                     <option value="1">JavaScript</option>
                     <option value="2">HTML</option>
@@ -183,9 +183,9 @@
             <!-- Difficulty select -->
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
-                    <label class="input-group-text" for="inputGroupSelect01">Level</label>
+                    <label class="input-group-text" for="difficulty-input">Level</label>
                 </div>
-                <select id="difficulty-input" class="custom-select" id="inputGroupSelect01">
+                <select id="difficulty-input" class="custom-select">
                     <option selected>Recommended</option>
                     <option value="1">Challenging</option>
                 </select>
@@ -194,10 +194,10 @@
             <!-- Capacity select -->
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
-                    <label class="input-group-text" for="inputGroupSelect01">Capacity</label>
+                    <label class="input-group-text" for="capacity-input">Capacity</label>
                 </div>
-                <select id="capacity-input" class="custom-select" id="inputGroupSelect01">
-                    <option value="0" selected>No limit</option>
+                <select id="capacity-input" class="custom-select">
+                    <option selected>No limit</option>
                     <option value="1">under 5</option>
                     <option value="2">under 10</option>
                     <option value="3">under 15</option>
@@ -242,6 +242,7 @@
                 </div>
             </div><br>
             <div style="text-align:right">
+                <button id="clear-btn" class="btn btn-dark" style="font-size: 12px">Clear</button>
                 <button id="submit-btn" class="btn btn-success" style="font-size: 12px">Submit</button>
             </div>
         </form>

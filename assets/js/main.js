@@ -84,6 +84,11 @@ $(document).on('click', '#cancel-btn', function (event) {
     $('#create-btn').show();
 })
 
+$(document).on('click', '#clear-btn', function (event) {
+    event.preventDefault();
+    clearForm();
+})
+
 //Confirm creating study group:
 $(document).on('click', "#submit-btn", function () {
     if ($('#topic-input').val() === ""){

@@ -107,7 +107,7 @@ function dateShorten(timeEntire) {
 
 function clearForm(){
     $('#category-input').val('General');
-    $('#category-input').val('Recommended');
+    $('#difficulty-input').val('Recommended');
     $('#capacity-input').val('No limit');
     $('#topic-input').val('');
     $('#location-input').val('');
