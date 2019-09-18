@@ -73,12 +73,20 @@ $(document).on('click', '.expand-btn', function () {
 $(document).on('click', '#create-btn', function () {
     if (username !== null) {
         $("#create-card").fadeIn();
+        $('#create-btn').hide();
     }
 })
 
 //Cancel creating study group:
-$(document).on('click', '#cancel-btn', function () {
+$(document).on('click', '#cancel-btn', function (event) {
+    event.preventDefault();
     $("#create-card").fadeOut();
+    $('#create-btn').show();
+})
+
+$(document).on('click', '#clear-btn', function (event) {
+    event.preventDefault();
+    clearForm();
 })
 
 //Confirm creating study group:
@@ -99,12 +107,7 @@ $(document).on('click', "#submit-btn", function () {
         alert("Please add start time");
         return;
     }
-
-    // TODO: Save studyGroup Object to Firebase ,check basicFunctions.js
-    saveThisGroup();
-
-    // This can be replaced by firebase snapshot
-    printThisGroup();
-
+    
     $("#create-card").fadeOut();
+    $('#create-btn').show();
 })
