@@ -145,6 +145,8 @@ function retrievingData() {
     if(snapshot.val().username===localStorage.getItem('username')){
       var deleteBtn = $("<button>");
     deleteBtn.attr("style", "font-size:10px");
+    deleteBtn.addClass("delete-btn");
+    deleteBtn.attr("id", "delete-"+snapshot.key);
     deleteBtn.text("X");
     newDivBtns.append(deleteBtn);
     newDivBtns.append("<br/>");
@@ -314,3 +316,9 @@ function updateFirebase(key, parties) {
     participants: parties.split(" , ")
   })
 };
+
+$(document).on('click','.delete-btn', function (){
+  var id = ($(this)[0].id).split('-');
+  database.ref("/groupArray/" + id[1]).remove();
+  launchMainPage();
+});
