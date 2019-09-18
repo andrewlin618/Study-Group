@@ -1,5 +1,6 @@
 var key = 0;
 var accordionDiv;
+var mainWrapperDiv;
 var capacityArray = ["No Limit", "under 5", "under 10", "under 15"];
 var firebaseConfig = {
   apiKey: "AIzaSyCu102M6JFJfKsBqQDVjE-g-xjs5phBqgk",
@@ -70,10 +71,14 @@ function retrievingData() {
   // Firebase is always watching for changes to the data.
   // When changes occurs it will print them to console and html
   database.ref("/groupArray/").on("child_added", function (snapshot, prevChildKey) {
+ 
+    mainWrapperDiv=$("<div>");
+    mainWrapperDiv.attr("id","mainWrapperDiv");
 
+    console.log("This is previous key"+prevChildKey);
     var cardHeaderDiv = $("<div>");
     cardHeaderDiv.addClass("card-header");
-    cardHeaderDiv.attr("id", snapshot.key);
+    // cardHeaderDiv.attr("id", snapshot.key);
 
     //-----------------------------
     //-----------------------------
@@ -166,10 +171,6 @@ function retrievingData() {
     lrnBtn.attr("aria-expanded", "true");
 
     lrnBtn.text('more ▼')
-    // var newBTNlrn = $("<p>");
-    // newBTNlrn.text("Learn More");
-    // lrnBtn.append(newBTNlrn);
-
 
     newDivBtns.append(topicBtn);
     newDivBtns.append("<br/>");
@@ -182,23 +183,21 @@ function retrievingData() {
     
     var groupDiv = $('<div>');
     groupDiv.addClass('card my-2 group-div');
+    groupDiv.attr("id", snapshot.key);
 
     groupDiv.append(cardHeaderDiv);
-
-    if (key === 0) {
-      groupDiv.append(cardHeaderDiv);
-
-    } else {
-      $(cardHeaderDiv).insertAfter("#" + prevChildKey);
-    }
-
-
-
     accordionDiv.append(learnMoreDiv);
     groupDiv.append(accordionDiv);
 
-    $('#main-page').append(groupDiv);
+    if(prevChildKey===null){
 
+      $('#main-page').prepend(groupDiv);
+    }
+    else{
+      $(groupDiv).insertAfter("#" + prevChildKey);
+    }
+    
+    
     printLearnMore(snapshot);
 
 
@@ -293,10 +292,12 @@ function printLearnMore(snapshot) {
 
 }
 
-$(".join-btn").on("click", function (event) {
-  console.log($(this).attr('data-target'));
-  // groupArrays.push(grpOBJ);
 
-  saveDataToDB(grpOBJ);
-  // retrievingData(key);
-})
+
+// $(".join-btn").on("click", function (event) {
+//   console.log($(this).attr('data-target'));
+//   // groupArrays.push(grpOBJ);
+
+//   saveDataToDB(grpOBJ);
+//   // retrievingData(key);
+// })
