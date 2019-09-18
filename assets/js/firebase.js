@@ -51,7 +51,8 @@ $("#submit-btn").on("click", function (event) {
   // retrievingData(key);
 
   clearForm();
-
+  $('#main-page').empty();
+   retrievingData();
 });
 
 function saveDataToDB(grpOBJ) {
@@ -141,10 +142,14 @@ function retrievingData() {
     newDivBtns.addClass("float-right m-2");
     newDivBtns.attr("style", "text-align: right;height: 100%;");
 
-    var deleteBtn = $("<button>");
+    if(snapshot.val().username===localStorage.getItem('username')){
+      var deleteBtn = $("<button>");
     deleteBtn.attr("style", "font-size:10px");
     deleteBtn.text("X");
-
+    newDivBtns.append(deleteBtn);
+    newDivBtns.append("<br/>");
+    newDivBtns.append("<br>");
+    }  
 
     var topicBtn = $("<button>");
     topicBtn.attr("style", "font-size:10px");
@@ -174,9 +179,7 @@ function retrievingData() {
 
     lrnBtn.text('more ▼')
 
-    newDivBtns.append(deleteBtn);
-    newDivBtns.append("<br/>");
-    newDivBtns.append("<br>");
+    
     newDivBtns.append(topicBtn);
     newDivBtns.append("<br/>");
     newDivBtns.append("<br>");
@@ -210,7 +213,7 @@ function retrievingData() {
   });
 }
 
-retrievingData();
+// retrievingData();
 
 function printLearnMore(snapshot) {
 
@@ -234,7 +237,6 @@ function printLearnMore(snapshot) {
   joinBtn.attr('autocomplete', 'off');
   joinBtn.attr('data-target', 'participant' + snapshot.key);
   joinBtn.attr("id", "join-" + snapshot.key);
-  console.log("fqqqqqq:" + 'participant-' + snapshot.key);
 
   var joinText = $('<p>');
   joinText.text('+ join');
@@ -298,17 +300,17 @@ function printLearnMore(snapshot) {
 $(document).on('click', '.join-btn', function () {
   var id = ($(this)[0].id).split('-');
   var part = $('#participant-' + id[1]);
-  if (part.text().split(',').indexOf(localStorage.getItem('username')) > -1) {
-    var parties = part.text(part.text() + " , " + localStorage.getItem('username'));
-    updateFirebase(id[1], parties[0].textContent);
+  if (part.text().split(' , ').indexOf(localStorage.getItem('username')) > -1) {
+    alert("you are already a member");
   }
   else {
-    alert("you are already a member");
+    var parties = part.text(part.text() + " , " + localStorage.getItem('username'));
+    updateFirebase(id[1], parties[0].textContent);
   }
 });
 
 function updateFirebase(key, parties) {
   database.ref("/groupArray/" + key).update({
-    participants: parties.split(",")
+    participants: parties.split(" , ")
   })
 };
