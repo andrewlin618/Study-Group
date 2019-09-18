@@ -20,11 +20,11 @@ function launchLoginPage() {
 function launchMainPage() {
     $('#space-holder').hide();
     $('#log-in-page').hide();
-    $('#main-page').show();    
+    $('#main-page').show();
 }
 
 function logIn() {
-    $('#user-image').attr('src','assets/images/andrew-lin.png');
+    $('#user-image').attr('src', 'assets/images/andrew-lin.png');
     $('#name-shortcut').text(localStorage.getItem('username-shortcut'));
     if (localStorage.getItem('user-category-select')) {
         $('#category-select').val(localStorage.getItem('user-category-select'));
@@ -52,25 +52,76 @@ function logOut() {
     $('#log-in-page').show();
     $("#log-in-text").text("logging out…")
     $('#name-shortcut').html('&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp');
-    $('#user-image').attr('src','assets/images/icon.png');
+    $('#user-image').attr('src', 'assets/images/icon.png');
     $('#category-select').val('Category');
     $('#difficulty-select').val('Difficulty');
     $('#location-select').val('Location');
 }
 
-// TODO: Save studyGroup Object to Firebase 
-function saveThisGroup(studyGroup) {
-    localStorage.setItem('studyGroup1', studyGroup);
+function dateShorten(timeEntire) {
+    var d = new Date();
+    var n = d.getFullYear();
+    if (timeEntire.substr(0, 4) == n) {
+        timeEntire = timeEntire.slice(5);
+    }
+    switch (timeEntire.slice(0, 3)) {
+        case '01-':
+            timeEntire = 'Jan ' + timeEntire.slice(3);
+            break;
+        case '02-':
+            timeEntire = 'Feb ' + timeEntire.slice(3);
+            break;
+        case '03-':
+            timeEntire = 'Mar ' + timeEntire.slice(3);
+            break;
+        case '04-':
+            timeEntire = 'Apr ' + timeEntire.slice(3);
+            break;
+        case '05-':
+            timeEntire = 'May ' + timeEntire.slice(3);
+            break;
+        case '06-':
+            timeEntire = 'June ' + timeEntire.slice(3);
+            break;
+        case '07-':
+            timeEntire = 'July ' + timeEntire.slice(3);
+            break;
+        case '08-':
+            timeEntire = 'Aug ' + timeEntire.slice(3);
+            break;
+        case '09-':
+            timeEntire = 'Sep ' + timeEntire.slice(3);
+            break;
+        case '10-':
+            timeEntire = 'Oct ' + timeEntire.slice(3);
+            break;
+        case '11-':
+            timeEntire = 'Nov ' + timeEntire.slice(3);
+            break;
+        case '12-':
+            timeEntire = 'Dec ' + timeEntire.slice(3);
+            break;
+    }
+    return timeEntire;
 }
 
-function printThisGroup(studyGroup) {
+function clearForm(){
+    $('#category-input').val('General');
+    $('#difficulty-input').val('Recommended');
+    $('#capacity-input').val('No limit');
+    $('#topic-input').val('');
+    $('#location-input').val('');
+    $('#date-input').val('');
+    $('#start-time-input').val('');
+    $('#end-time-input').val(''); 
 }
 
-$(".time-information").on("click",function(){
+
+$(".time-information").on("click", function () {
     alert('add to calender~~~');
 });
 
 
-$(".location-information").on('click',function(){
+$(".location-information").on('click', function () {
     alert('navigation~~~');
 })
