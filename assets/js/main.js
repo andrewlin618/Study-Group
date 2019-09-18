@@ -90,24 +90,25 @@ $(document).on('click', '#clear-btn', function (event) {
 })
 
 //Confirm creating study group:
-$(document).on('click', "#submit-btn", function () {
-    if ($('#topic-input').val() === ""){
-        alert("Please add discussion topic");
-        return;
-    }
-    if ($('#location-input').val() === ""){
-        alert("Please add location");
-        return;
-    }
-    if ($('#date-input').val() === ""){
-        alert("Please add date");
-        return;
-    }
-    if ($('#start-time-input').val() === ""){
-        alert("Please add start time");
-        return;
-    }
+// $(document).on('click', "#submit-btn", function () {
+//     console.log('hello:' + $('#topic-input').val());
+//     if ($('#topic-input').val() === ""){
+//         alert("Please add discussion topic");
+//         return;
+//     }
+//     if ($('#location-input').val() === ""){
+//         alert("Please add location");
+//         return;
+//     }
+//     if ($('#date-input').val() === ""){
+//         alert("Please add date");
+//         return;
+//     }
+//     if ($('#start-time-input').val() === ""){
+//         alert("Please add start time");
+//         return;
+//     }
     
-    $("#create-card").fadeOut();
-    $('#create-btn').show();
-})
+//     $("#create-card").fadeOut();
+//     $('#create-btn').show();
+// })

@@ -116,6 +116,24 @@ function clearForm(){
     $('#end-time-input').val(''); 
 }
 
+function validation(){
+    if ($('#topic-input').val() === ""){
+        alert("Please add discussion topic");
+        return false;
+    }
+    if ($('#location-input').val() === ""){
+        alert("Please add location");
+        return false;
+    }
+    if ($('#date-input').val() === ""){
+        alert("Please add date");
+        return false;
+    }
+    if ($('#start-time-input').val() === ""){
+        alert("Please add start time");
+        return false;
+    }
+}
 
 $(".time-information").on("click", function () {
     alert('add to calender~~~');
