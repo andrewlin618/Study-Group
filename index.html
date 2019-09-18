@@ -72,10 +72,10 @@
             </div>
         </div>
     </div>
-
-    <!-- Main page : -->
+    
+ <!-- Main page : -->
+    <br><br><br><br><br>
     <div id="main-page" class="m-auto">
-        <br>
         <!-- Study group div -->
         <!-- <div class="card my-2 group-div">
             <div class="card-header">
@@ -152,103 +152,101 @@
                 </div>
             </div>
         </div> -->
-        <br><br><br><br>
-
-
-        <!-- Create button -->
-        <nav id="navbar" class="navbar navbar-expand-lg navbar-dark bg-dark fixed-bottom">
-            <button id="create-btn" type="button" class="btn btn-success w-100" style="z-index:5">
-                Create a study group
-            </button>
-        </nav>
-        <!-- Create expanded card -->
-        <div id="create-card" class="card">
-            <form class="m-4">
-                <div style="text-align:right">
-                    <button id="cancel-btn" class="btn btn-secondary">x</button>
-                </div>
-                <h5 class="text-center">New Study Group</h5><br>
-                <!-- Category select -->
-                <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                        <label class="input-group-text" for="inputGroupSelect01">Category</label>
-                    </div>
-                    <select id="category-input" class="custom-select" id="inputGroupSelect01">
-                        <option selected>General</option>
-                        <option value="1">JavaScript</option>
-                        <option value="2">HTML</option>
-                        <option value="3">CSS</option>
-                    </select>
-                </div>
-                <!-- Difficulty select -->
-                <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                        <label class="input-group-text" for="inputGroupSelect01">Level</label>
-                    </div>
-                    <select id="difficulty-input" class="custom-select" id="inputGroupSelect01">
-                        <option selected>Recommended</option>
-                        <option value="1">Challenging</option>
-                    </select>
-                </div>
-
-                <!-- Capacity select -->
-                <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                        <label class="input-group-text" for="inputGroupSelect01">Capacity</label>
-                    </div>
-                    <select id="capacity-input" class="custom-select" id="inputGroupSelect01">
-                        <option value="0" selected>No limit</option>
-                        <option value="1">under 5</option>
-                        <option value="2">under 10</option>
-                        <option value="3">under 15</option>
-                    </select>
-                </div>
-
-                <!-- Discussion Topic -->
-                <label>Discussion Topic</label>
-                <div class="form-group w-100 mb-2 d-flex justify-content-between">
-                    <input id="topic-input" class="form-control w-75" placeholder="Enter topic">
-                    <button id="topic-btn" class="btn btn-primary" style="font-size: 12px">Search</button>
-                </div>
-                <!-- API call for questions -->
-                <div id="questions-show-here" class="form-group">
-                </div>
-
-                <!-- API call for books -->
-                <div id="books-show-here" class="form-group">
-                </div>
-
-                <!-- Location -->
-                <div class="form-group">
-                    <label>Location</label>
-                    <input id="location-input" class="form-control" placeholder="Enter Location">
-                </div>
-
-                <!-- TODO:Time -->
-                <div class="form-group w-100 mb-2 d-flex justify-content-between">
-                    <div class="mr-1" style="width: 40%">
-                        <label>Date</label>
-                        <input id="date-input" type="date" id="date-input" class="form-control"
-                            placeholder="Enter Date">
-                    </div>
-                    <div class="mr-1" style="width: 28%">
-                        <label>Start Time</label>
-                        <input id="start-time-input" type="time" id="time-input" id="date-input" class="form-control"
-                            placeholder="Enter Time">
-                    </div>
-                    <div class="" style="width: 28%">
-                        <label>End Time</label>
-                        <input id="end-time-input" type="time" id="time-input" id="date-input" class="form-control"
-                            placeholder="Enter Time">
-                    </div>
-                </div><br>
-                <div style="text-align:right">
-                    <button id="submit-btn" class="btn btn-success" style="font-size: 12px">Submit</button>
-                </div>
-            </form>
-        </div>
+        
     </div>
 
+
+    <!-- Create button -->
+    <nav id="navbar" class="navbar navbar-expand-lg navbar-dark bg-dark fixed-bottom">
+        <button id="create-btn" type="button" class="btn btn-success w-100" style="z-index:5">
+            Create a study group
+        </button>
+    </nav>
+    <!-- Create expanded card -->
+    <div id="create-card" class="card">
+        <form class="m-4">
+            <div style="text-align:right">
+                <button id="cancel-btn" class="btn-secondary">x</button>
+            </div>
+            <h5 class="text-center">New Study Group</h5><br>
+            <!-- Category select -->
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <label class="input-group-text" for="inputGroupSelect01">Category</label>
+                </div>
+                <select id="category-input" class="custom-select" id="inputGroupSelect01">
+                    <option selected>General</option>
+                    <option value="1">JavaScript</option>
+                    <option value="2">HTML</option>
+                    <option value="3">CSS</option>
+                </select>
+            </div>
+            <!-- Difficulty select -->
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <label class="input-group-text" for="inputGroupSelect01">Level</label>
+                </div>
+                <select id="difficulty-input" class="custom-select" id="inputGroupSelect01">
+                    <option selected>Recommended</option>
+                    <option value="1">Challenging</option>
+                </select>
+            </div>
+
+            <!-- Capacity select -->
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <label class="input-group-text" for="inputGroupSelect01">Capacity</label>
+                </div>
+                <select id="capacity-input" class="custom-select" id="inputGroupSelect01">
+                    <option value="0" selected>No limit</option>
+                    <option value="1">under 5</option>
+                    <option value="2">under 10</option>
+                    <option value="3">under 15</option>
+                </select>
+            </div>
+
+            <!-- Discussion Topic -->
+            <label>Discussion Topic</label>
+            <div class="form-group w-100 mb-2 d-flex justify-content-between">
+                <input id="topic-input" class="form-control w-75" placeholder="Enter topic">
+                <button id="topic-btn" class="btn btn-primary" style="font-size: 12px">Search</button>
+            </div>
+            <!-- API call for questions -->
+            <div id="questions-show-here" class="form-group">
+            </div>
+
+            <!-- API call for books -->
+            <div id="books-show-here" class="form-group">
+            </div>
+
+            <!-- Location -->
+            <div class="form-group">
+                <label>Location</label>
+                <input id="location-input" class="form-control" placeholder="Enter Location">
+            </div>
+
+            <!-- TODO:Time -->
+            <div class="form-group w-100 mb-2 d-flex justify-content-between">
+                <div class="mr-1" style="width: 40%">
+                    <label>Date</label>
+                    <input id="date-input" type="date" id="date-input" class="form-control" placeholder="Enter Date">
+                </div>
+                <div class="mr-1" style="width: 28%">
+                    <label>Start Time</label>
+                    <input id="start-time-input" type="time" id="time-input" id="date-input" class="form-control"
+                        placeholder="Enter Time">
+                </div>
+                <div class="" style="width: 28%">
+                    <label>End Time</label>
+                    <input id="end-time-input" type="time" id="time-input" id="date-input" class="form-control"
+                        placeholder="Enter Time">
+                </div>
+            </div><br>
+            <div style="text-align:right">
+                <button id="submit-btn" class="btn btn-success" style="font-size: 12px">Submit</button>
+            </div>
+        </form>
+    </div>
 
     <!-- ==================================================================================================================================== -->
     <!-- Bootstrap Javascript Links: -->
