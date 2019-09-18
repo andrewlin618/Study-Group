@@ -237,7 +237,6 @@ function printLearnMore(snapshot) {
   joinBtn.attr('autocomplete', 'off');
   joinBtn.attr('data-target', 'participant' + snapshot.key);
   joinBtn.attr("id", "join-" + snapshot.key);
-  console.log("fqqqqqq:" + 'participant-' + snapshot.key);
 
   var joinText = $('<p>');
   joinText.text('+ join');
@@ -301,9 +300,6 @@ function printLearnMore(snapshot) {
 $(document).on('click', '.join-btn', function () {
   var id = ($(this)[0].id).split('-');
   var part = $('#participant-' + id[1]);
-  console.log(part);
-  console.log(localStorage.getItem('username'));
-  console.log((part.text().split(',')));
   if (part.text().split(' , ').indexOf(localStorage.getItem('username')) > -1) {
     alert("you are already a member");
   }
