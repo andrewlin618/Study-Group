@@ -58,13 +58,6 @@ function logOut() {
     $('#location-select').val('Location');
 }
 
-// TODO: Save studyGroup Object to Firebase 
-function saveThisGroup(studyGroup) {
-    localStorage.setItem('studyGroup1', studyGroup);
-}
-
-function printThisGroup(studyGroup) {}
-
 function dateShorten(timeEntire) {
     var d = new Date();
     var n = d.getFullYear();
@@ -110,6 +103,17 @@ function dateShorten(timeEntire) {
             break;
     }
     return timeEntire;
+}
+
+function clearForm(){
+    $('#category-input').val('General');
+    $('#difficulty-input').val('Recommended');
+    $('#capacity-input').val('No limit');
+    $('#topic-input').val('');
+    $('#location-input').val('');
+    $('#date-input').val('');
+    $('#start-time-input').val('');
+    $('#end-time-input').val(''); 
 }
 
 
