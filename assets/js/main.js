@@ -101,13 +101,12 @@ $(document).on('click', "#submit-btn", function () {
         alert("Please add start time");
         return;
     }
-
     // TODO: Save studyGroup Object to Firebase ,check basicFunctions.js
     saveThisGroup();
 
     // This can be replaced by firebase snapshot
     printThisGroup();
-
+    
     $("#create-card").fadeOut();
     $('#create-btn').show();
 })
