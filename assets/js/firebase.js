@@ -74,13 +74,8 @@ function retrievingData() {
   // When changes occurs it will print them to console and html
   database.ref("/groupArray/").on("child_added", function (snapshot, prevChildKey) {
 
-    mainWrapperDiv = $("<div>");
-    mainWrapperDiv.attr("id", "mainWrapperDiv");
-
-    console.log("This is previous key" + prevChildKey);
     var cardHeaderDiv = $("<div>");
     cardHeaderDiv.addClass("card-header");
-    // cardHeaderDiv.attr("id", snapshot.key);
 
     //-----------------------------
     //-----------------------------
@@ -115,25 +110,19 @@ function retrievingData() {
     var dateEntire = snapshot.val().date
     var date = dateShorten(dateEntire);
 
-    // + "  " + snapshot.val().startTime + '-' + snapshot.val().endTime;
     if (snapshot.val().endTime === '') {
       newP1.html(date + '&nbsp&nbsp&nbsp' + snapshot.val().startTime);
     } else {
       newP1.html(date + '&nbsp&nbsp&nbsp' + snapshot.val().startTime + '-' + snapshot.val().endTime);
     }
 
-
-
-
     var newP2 = $("<p>");
     newP2.addClass("location-information");
     newP2.text(snapshot.val().location);
 
-
     var newP3 = $("<p>");
     newP3.addClass("capacity-information");
     newP3.text(capacityArray[snapshot.val().capacity]);
-
 
     // -----------------------------
     newDiv.append(newH5);
@@ -149,9 +138,7 @@ function retrievingData() {
     var topicBtn = $("<button>");
     topicBtn.attr("style", "font-size:10px");
     topicBtn.text(snapshot.val().category);
-    console.log('=====:' + snapshot.val().participants);
-
-
+   
     switch (snapshot.val().category) {
       case 'General':
         topicBtn.addClass("btn-dark");
@@ -204,8 +191,6 @@ function retrievingData() {
 
     printLearnMore(snapshot);
 
-
-    //   // If any errors are experienced, log them to console.
   }, function (errorObject) {
     console.log("The read failed: " + errorObject.code);
   });
@@ -299,12 +284,17 @@ function printLearnMore(snapshot) {
 $(document).on('click', '.join-btn', function () {
   var id = ($(this)[0].id).split('-');
   var part = $('#participant-' + id[1]);
-  var parties=part.text(part.text() + " , " + localStorage.getItem('username'));
-  updateFirebase(id[1],parties[0].textContent);
+  if (part.text().split(',').indexOf(localStorage.getItem('username')) > -1) {
+    var parties = part.text(part.text() + " , " + localStorage.getItem('username'));
+    updateFirebase(id[1], parties[0].textContent);
+  }
+  else{
+    alert("you are already a member");
+  }
 });
 
-function updateFirebase(key,parties) {
-  database.ref("/groupArray/"+key).update({
-     participants:parties.split(",")
+function updateFirebase(key, parties) {
+  database.ref("/groupArray/" + key).update({
+    participants: parties.split(",")
   })
 };
