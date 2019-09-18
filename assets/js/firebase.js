@@ -23,7 +23,13 @@ var database = firebase.database();
 // Click Button changes what is stored in firebase
 $("#submit-btn").on("click", function (event) {
 
+  var validate = validation();
   event.preventDefault();
+  if (!validate) {
+    return;
+  }
+  $("#create-card").fadeOut();
+  $('#create-btn').show();
   var grpOBJ = {};
 
   grpOBJ.category = $("#category-input option:selected").text();
@@ -135,10 +141,15 @@ function retrievingData() {
     newDivBtns.addClass("float-right m-2");
     newDivBtns.attr("style", "text-align: right;height: 100%;");
 
+    var deleteBtn = $("<button>");
+    deleteBtn.attr("style", "font-size:10px");
+    deleteBtn.text("X");
+
+
     var topicBtn = $("<button>");
     topicBtn.attr("style", "font-size:10px");
     topicBtn.text(snapshot.val().category);
-   
+
     switch (snapshot.val().category) {
       case 'General':
         topicBtn.addClass("btn-dark");
@@ -163,6 +174,9 @@ function retrievingData() {
 
     lrnBtn.text('more ▼')
 
+    newDivBtns.append(deleteBtn);
+    newDivBtns.append("<br/>");
+    newDivBtns.append("<br>");
     newDivBtns.append(topicBtn);
     newDivBtns.append("<br/>");
     newDivBtns.append("<br>");
@@ -288,7 +302,7 @@ $(document).on('click', '.join-btn', function () {
     var parties = part.text(part.text() + " , " + localStorage.getItem('username'));
     updateFirebase(id[1], parties[0].textContent);
   }
-  else{
+  else {
     alert("you are already a member");
   }
 });
