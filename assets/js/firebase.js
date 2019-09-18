@@ -1,6 +1,6 @@
 var key = 0;
 var accordionDiv;
-var mainWrapperDiv;
+var participantsList = [];
 var capacityArray = ["No Limit", "under 5", "under 10", "under 15"];
 var firebaseConfig = {
   apiKey: "AIzaSyCu102M6JFJfKsBqQDVjE-g-xjs5phBqgk",
@@ -44,6 +44,8 @@ $("#submit-btn").on("click", function (event) {
   saveDataToDB(grpOBJ);
   // retrievingData(key);
 
+  clearForm();
+
 });
 
 function saveDataToDB(grpOBJ) {
@@ -71,11 +73,11 @@ function retrievingData() {
   // Firebase is always watching for changes to the data.
   // When changes occurs it will print them to console and html
   database.ref("/groupArray/").on("child_added", function (snapshot, prevChildKey) {
- 
-    mainWrapperDiv=$("<div>");
-    mainWrapperDiv.attr("id","mainWrapperDiv");
 
-    console.log("This is previous key"+prevChildKey);
+    mainWrapperDiv = $("<div>");
+    mainWrapperDiv.attr("id", "mainWrapperDiv");
+
+    console.log("This is previous key" + prevChildKey);
     var cardHeaderDiv = $("<div>");
     cardHeaderDiv.addClass("card-header");
     // cardHeaderDiv.attr("id", snapshot.key);
@@ -148,6 +150,8 @@ function retrievingData() {
     topicBtn.attr("style", "font-size:10px");
     topicBtn.text(snapshot.val().category);
     console.log('=====:' + snapshot.val().participants);
+
+
     switch (snapshot.val().category) {
       case 'General':
         topicBtn.addClass("btn-dark");
@@ -180,7 +184,7 @@ function retrievingData() {
     cardHeaderDiv.append(newImg);
     cardHeaderDiv.append(newDiv);
     cardHeaderDiv.append(newDivBtns);
-    
+
     var groupDiv = $('<div>');
     groupDiv.addClass('card my-2 group-div');
     groupDiv.attr("id", snapshot.key);
@@ -189,15 +193,15 @@ function retrievingData() {
     accordionDiv.append(learnMoreDiv);
     groupDiv.append(accordionDiv);
 
-    if(prevChildKey===null){
+    if (prevChildKey === null) {
 
       $('#main-page').prepend(groupDiv);
     }
-    else{
+    else {
       $(groupDiv).insertAfter("#" + prevChildKey);
     }
-    
-    
+
+
     printLearnMore(snapshot);
 
 
@@ -222,16 +226,16 @@ function printLearnMore(snapshot) {
   participantsTitle.addClass('card-title');
   participantsTitle.text('Participants: ');
   var participantList = $('<p>');
-  participantList.attr('id','participant-'+snapshot.key)
+  participantList.attr('id', 'participant-' + snapshot.key)
   participantList.text(snapshot.val().participants)
   var joinBtn = $('<button>');
   joinBtn.addClass('btn btn-primary join-btn')
   joinBtn.attr('data-toggle', 'button');
   joinBtn.attr('aria-pressed', 'false');
   joinBtn.attr('autocomplete', 'off');
-  joinBtn.attr('data-target', 'participant'+snapshot.key);
-
-  console.log("fqqqqqq:" + 'participant-'+snapshot.key);
+  joinBtn.attr('data-target', 'participant' + snapshot.key);
+  joinBtn.attr("id", "join-" + snapshot.key);
+  console.log("fqqqqqq:" + 'participant-' + snapshot.key);
 
   var joinText = $('<p>');
   joinText.text('+ join');
@@ -292,12 +296,15 @@ function printLearnMore(snapshot) {
 
 }
 
+$(document).on('click', '.join-btn', function () {
+  var id = ($(this)[0].id).split('-');
+  var part = $('#participant-' + id[1]);
+  var parties=part.text(part.text() + " , " + localStorage.getItem('username'));
+  updateFirebase(id[1],parties[0].textContent);
+});
 
-
-// $(".join-btn").on("click", function (event) {
-//   console.log($(this).attr('data-target'));
-//   // groupArrays.push(grpOBJ);
-
-//   saveDataToDB(grpOBJ);
-//   // retrievingData(key);
-// })
+function updateFirebase(key,parties) {
+  database.ref("/groupArray/"+key).update({
+     participants:parties.split(",")
+  })
+};
