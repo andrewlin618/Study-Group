@@ -73,12 +73,14 @@ $(document).on('click', '.expand-btn', function () {
 $(document).on('click', '#create-btn', function () {
     if (username !== null) {
         $("#create-card").fadeIn();
+        $('#create-btn').hide();
     }
 })
 
 //Cancel creating study group:
 $(document).on('click', '#cancel-btn', function () {
     $("#create-card").fadeOut();
+    $('#create-btn').show();
 })
 
 //Confirm creating study group:
@@ -107,4 +109,5 @@ $(document).on('click', "#submit-btn", function () {
     printThisGroup();
 
     $("#create-card").fadeOut();
+    $('#create-btn').show();
 })
