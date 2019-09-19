@@ -246,10 +246,10 @@ function printLearnMore(snapshot) {
     joinBtn.attr('data-target', 'participant' + snapshot.key);
     joinBtn.attr("id", "join-" + snapshot.key);
     var joinText = $('<p>');
-    if(participantList.text().split(', ').indexOf(localStorage.getItem('username')) == -1){
+    if (participantList.text().split(', ').indexOf(localStorage.getItem('username')) == -1) {
       joinBtn.addClass('btn-primary')
       joinText.text('+ join');
-    }else{
+    } else {
       joinBtn.addClass('btn-dark')
       joinText.text('- quit');
     }
@@ -272,7 +272,7 @@ function printLearnMore(snapshot) {
     for (var i = 0; i < snapshot.val().qstns.length; i++) {
       var newA = $("<a/>");
       newA.addClass("card-text");
-      newA.text(snapshot.val().qstns[i].keywordTitle);
+      newA.text(i + 1 + '.' + snapshot.val().qstns[i].keywordTitle);
       // newA.attr("src",);
       // newDiv.text(snapshot.val().qstns[i].keywordTitle);
       newA.attr("href", snapshot.val().qstns[i].keywordURL);
@@ -280,6 +280,7 @@ function printLearnMore(snapshot) {
       // newA.append(newDiv);
       // questionList.append(newA)
       newDivMain.append(newA)
+      newDivMain.append($('<br>'));
     }
   }
 
@@ -296,7 +297,7 @@ function printLearnMore(snapshot) {
       // newA.attr("src",);
       var newImg = $("<img>");
       newImg.attr("src", snapshot.val().books[i].bookImg);
-      newImg.attr("alt",snapshot.val().books[i].info_url);
+      newImg.attr("alt", snapshot.val().books[i].info_url);
       newImg.addClass("booksImg");
       newA.append(newImg);
       newA.attr("href", snapshot.val().books[i].info_url);
@@ -306,6 +307,25 @@ function printLearnMore(snapshot) {
       newDivMain.append(newA)
     }
   }
+  newDivMain.append($('<br>'));
+  newDivMain.append($('<br>'));
+  newDivMain.append($('<br>'));
+  newDivMain.append($('<br>'));
+  newDivMain.append($('<br>'));
+  newDivMain.append($('<br>'));
+  newDivMain.append($('<br>'));
+  newDivMain.append($('<br>'));
+  newDivMain.append($('<br>'));
+  newDivMain.append($('<br>'));
+  newDivMain.append($('<br>'));
+  newDivMain.append($('<br>'));
+  newDivMain.append($('<br>'));
+  newDivMain.append($('<br>'));
+  newDivMain.append($('<br>'));
+  newDivMain.append($('<br>'));
+  newDivMain.append($('<br>'));
+  newDivMain.append($('<br>'));
+
 
   learnMoreDiv.append(newDivMain);
 
@@ -326,9 +346,9 @@ $(document).on('click', '.join-btn', function () {
     $(this).addClass('btn-dark');
 
   } else {
-    console.log('????????:' + part.text().replace(', '+localStorage.getItem('username'),''));
+    console.log('????????:' + part.text().replace(', ' + localStorage.getItem('username'), ''));
     // console.log('???:' + parties);
-    parties = part.text(part.text().replace(', '+localStorage.getItem('username'),''));
+    parties = part.text(part.text().replace(', ' + localStorage.getItem('username'), ''));
     updateFirebase(id[1], parties[0].textContent);
     $(this).text('+ join');
     $(this).removeClass('btn-dark');
