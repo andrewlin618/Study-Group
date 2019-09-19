@@ -126,6 +126,7 @@ function clearForm() {
 }
 
 function validation() {
+    var d = new Date();
     if ($('#topic-input').val() === "") {
         alert("Please add discussion topic");
         return false;
@@ -136,6 +137,10 @@ function validation() {
     }
     if ($('#date-input').val() === "") {
         alert("Please add date");
+        return false;
+    }
+    if ($('#start-time-input').val() === "") {
+        alert("Please add start time");
         return false;
     }
     if ($('#start-time-input').val() === "") {
