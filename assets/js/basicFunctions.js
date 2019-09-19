@@ -13,7 +13,6 @@ function launchLoginPage() {
     }
     var newDiv = new $('<a>');
     newDiv.addClass('dropdown-item name-list');
-    newDiv.text("I am not in the class");
     $("#log-in-list").append(newDiv);
 }
 
@@ -22,11 +21,12 @@ function launchMainPage() {
     $('#log-in-page').hide();
     $('#main-page').show();
     $('#main-page').empty();
-   retrievingData();
+    retrievingData();
 }
 
 function logIn() {
-    $('#user-image').attr('src', 'assets/images/andrew-lin.png');
+
+    $('#user-image').attr('src', 'assets/images/' + username.replace(' ', '-') + '.png');
     $('#name-shortcut').text(localStorage.getItem('username-shortcut'));
     if (localStorage.getItem('user-category-select')) {
         $('#category-select').val(localStorage.getItem('user-category-select'));
@@ -107,7 +107,7 @@ function dateShorten(timeEntire) {
     return timeEntire;
 }
 
-function clearForm(){
+function clearForm() {
     $('#category-input').val('General');
     $('#difficulty-input').val('Recommended');
     $('#capacity-input').val('No limit');
@@ -115,23 +115,23 @@ function clearForm(){
     $('#location-input').val('');
     $('#date-input').val('');
     $('#start-time-input').val('');
-    $('#end-time-input').val(''); 
+    $('#end-time-input').val('');
 }
 
-function validation(){
-    if ($('#topic-input').val() === ""){
+function validation() {
+    if ($('#topic-input').val() === "") {
         alert("Please add discussion topic");
         return false;
     }
-    if ($('#location-input').val() === ""){
+    if ($('#location-input').val() === "") {
         alert("Please add location");
         return false;
     }
-    if ($('#date-input').val() === ""){
+    if ($('#date-input').val() === "") {
         alert("Please add date");
         return false;
     }
-    if ($('#start-time-input').val() === ""){
+    if ($('#start-time-input').val() === "") {
         alert("Please add start time");
         return false;
     }

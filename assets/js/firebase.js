@@ -42,7 +42,7 @@ $("#submit-btn").on("click", function (event) {
   grpOBJ.date = $("#date-input").val();
   grpOBJ.startTime = $("#start-time-input").val();
   grpOBJ.endTime = $('#end-time-input').val();
-  grpOBJ.username = localStorage.getItem('username');
+  grpOBJ.creator = localStorage.getItem('username');
   grpOBJ.participants = [localStorage.getItem('username')];
 
   // groupArrays.push(grpOBJ);
@@ -52,7 +52,7 @@ $("#submit-btn").on("click", function (event) {
 
   clearForm();
   $('#main-page').empty();
-   retrievingData();
+  retrievingData();
 });
 
 function saveDataToDB(grpOBJ) {
@@ -70,7 +70,7 @@ function saveDataToDB(grpOBJ) {
     date: grpOBJ.date,
     startTime: grpOBJ.startTime,
     endTime: grpOBJ.endTime,
-    username: grpOBJ.username,
+    creator: grpOBJ.creator,
     participants: grpOBJ.participants
   })
 }
@@ -91,14 +91,14 @@ function retrievingData() {
     accordionDiv.addClass('accordion');
     learnMoreDiv = $('<div>');
     learnMoreDiv.addClass('collapse');
-    learnMoreDiv.attr("id", snapshot.val().username.replace(/\s/g, "") + snapshot.key);
+    learnMoreDiv.attr("id", snapshot.val().creator.replace(' ', '') + snapshot.key);
 
 
 
     // -----------------------------
     // -----------------------------
     var newImg = $("<img>");
-    newImg.attr("src", "assets/images/andrew-lin.png");
+    newImg.attr("src", 'assets/images/' + snapshot.val().creator.replace(' ', '-') + '.png');
     newImg.addClass("image-information creator-img float-left my-3");
     // -----------------------------
     var newDiv = $("<div>");
@@ -142,17 +142,6 @@ function retrievingData() {
     newDivBtns.addClass("float-right m-2");
     newDivBtns.attr("style", "text-align: right;height: 100%;");
 
-    if(snapshot.val().username===localStorage.getItem('username')||localStorage.getItem('username')==="Manager"){
-      var deleteBtn = $("<button>");
-    deleteBtn.attr("style", "font-size:10px");
-    deleteBtn.addClass("delete-btn");
-    deleteBtn.attr("id", "delete-"+snapshot.key);
-    deleteBtn.text("X");
-    newDivBtns.append(deleteBtn);
-    newDivBtns.append("<br/>");
-    newDivBtns.append("<br>");
-    }  
-
     var topicBtn = $("<button>");
     topicBtn.attr("style", "font-size:10px");
     topicBtn.text(snapshot.val().category);
@@ -172,17 +161,27 @@ function retrievingData() {
         break;
     }
 
+    newDivBtns.append(topicBtn);
+
+    if (snapshot.val().creator === localStorage.getItem('username') || localStorage.getItem('username') === "Manager") {
+      var deleteBtn = $("<button>");
+      deleteBtn.attr("style", "font-size:10px");
+      deleteBtn.addClass("delete-btn btn-danger ml-3");
+      deleteBtn.attr("id", "delete-" + snapshot.key);
+      deleteBtn.text("X");
+      newDivBtns.append(deleteBtn);
+    }
+
     var lrnBtn = $("<button>");
     lrnBtn.addClass("btn btn-secondary expand-btn");
     lrnBtn.attr("style", "font-size:10px");
     lrnBtn.attr("data-toggle", "collapse");
-    lrnBtn.attr("data-target", "#" + snapshot.val().username.replace(/\s/g, "") + snapshot.key);
+    lrnBtn.attr("data-target", "#" + snapshot.val().creator.replace(/\s/g, "") + snapshot.key);
     lrnBtn.attr("aria-expanded", "true");
 
     lrnBtn.text('more ▼')
 
-    
-    newDivBtns.append(topicBtn);
+
     newDivBtns.append("<br/>");
     newDivBtns.append("<br>");
     newDivBtns.append(lrnBtn);
@@ -202,8 +201,7 @@ function retrievingData() {
     if (prevChildKey === null) {
 
       $('#main-page').prepend(groupDiv);
-    }
-    else {
+    } else {
       $(groupDiv).insertAfter("#" + prevChildKey);
     }
 
@@ -224,38 +222,49 @@ function printLearnMore(snapshot) {
   var creatorTitle = $('<h5>');
   creatorTitle.addClass('card-title');
   creatorTitle.text('Creator: ');
-  var createName = $('<p>');
-  createName.text(snapshot.val().username);
+  var creatorName = $('<p>');
+  creatorName.text(snapshot.val().creator);
   var participantsTitle = $('<h5>');
   participantsTitle.addClass('card-title');
   participantsTitle.text('Participants: ');
   var participantList = $('<p>');
-  participantList.attr('id', 'participant-' + snapshot.key)
-  participantList.text(snapshot.val().participants)
-  var joinBtn = $('<button>');
-  joinBtn.addClass('btn btn-primary join-btn')
-  joinBtn.attr('data-toggle', 'button');
-  joinBtn.attr('aria-pressed', 'false');
-  joinBtn.attr('autocomplete', 'off');
-  joinBtn.attr('data-target', 'participant' + snapshot.key);
-  joinBtn.attr("id", "join-" + snapshot.key);
-
-  var joinText = $('<p>');
-  joinText.text('+ join');
-  joinBtn.append(joinText);
-
-  var questionList = $('<h5>');
-  questionList.text('FAQ: ');
-
+  participantList.attr('id', 'participant-' + snapshot.key);
+  participantList.text(snapshot.val().participants.join(', '));
   newDivMain.append(creatorTitle);
-  newDivMain.append(createName);
+  newDivMain.append(creatorName);
   newDivMain.append('<br>');
   newDivMain.append(participantsTitle);
   newDivMain.append(participantList);
   newDivMain.append('<br>');
-  newDivMain.append(joinBtn);
-  newDivMain.append('<br>');
-  newDivMain.append('<br>');
+
+  if (snapshot.val().creator !== localStorage.getItem('username')) {
+    var joinBtn = $('<button>');
+    joinBtn.addClass('btn join-btn')
+    // joinBtn.attr('data-toggle', 'button');
+    // joinBtn.attr('aria-pressed', 'false');
+    // joinBtn.attr('autocomplete', 'off');
+    joinBtn.attr('data-target', 'participant' + snapshot.key);
+    joinBtn.attr("id", "join-" + snapshot.key);
+    var joinText = $('<p>');
+    if(participantList.text().split(', ').indexOf(localStorage.getItem('username')) == -1){
+      joinBtn.addClass('btn-primary')
+      joinText.text('+ join');
+    }else{
+      joinBtn.addClass('btn-dark')
+      joinText.text('- quit');
+    }
+
+
+    joinBtn.append(joinText);
+    newDivMain.append(joinBtn);
+    newDivMain.append('<br>');
+    newDivMain.append('<br>');
+  }
+
+  var questionList = $('<h5>');
+  questionList.text('FAQ: ');
+
+
   newDivMain.append(questionList);
 
   if (snapshot.val().qstns) {
@@ -301,27 +310,39 @@ function printLearnMore(snapshot) {
 
 $(document).on('click', '.join-btn', function () {
   var id = ($(this)[0].id).split('-');
+
   var part = $('#participant-' + id[1]);
-  if (part.text().split(' , ').indexOf(localStorage.getItem('username')) > -1) {
-    alert("you are already a member");
-  }
-  else {
-    var parties = part.text(part.text() + " , " + localStorage.getItem('username'));
+  var parties = '';
+
+  if (part.text().split(', ').indexOf(localStorage.getItem('username')) == -1) {
+    parties = part.text(part.text() + ", " + localStorage.getItem('username'));
     updateFirebase(id[1], parties[0].textContent);
+    $(this).text('- quit');
+    $(this).removeClass('btn-primary');
+    $(this).addClass('btn-dark');
+
+  } else {
+    console.log('????????:' + part.text().replace(', '+localStorage.getItem('username'),''));
+    // console.log('???:' + parties);
+    parties = part.text(part.text().replace(', '+localStorage.getItem('username'),''));
+    updateFirebase(id[1], parties[0].textContent);
+    $(this).text('+ join');
+    $(this).removeClass('btn-dark');
+    $(this).addClass('btn-primary');
   }
 });
 
 function updateFirebase(key, parties) {
   database.ref("/groupArray/" + key).update({
-    participants: parties.split(" , ")
+    participants: parties.split(", ")
   })
 };
 
-$(document).on('click','.delete-btn', function (){
+$(document).on('click', '.delete-btn', function () {
   var id = ($(this)[0].id).split('-');
   database.ref("/groupArray/" + id[1]).remove();
 });
 
-database.ref("/groupArray").on("child_removed", function(snapshot) {
+database.ref("/groupArray").on("child_removed", function (snapshot) {
   launchMainPage();
 });
