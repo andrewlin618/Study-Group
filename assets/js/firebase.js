@@ -142,7 +142,7 @@ function retrievingData() {
     newDivBtns.addClass("float-right m-2");
     newDivBtns.attr("style", "text-align: right;height: 100%;");
 
-    if(snapshot.val().username===localStorage.getItem('username')){
+    if(snapshot.val().username===localStorage.getItem('username')||localStorage.getItem('username')==="Manager"){
       var deleteBtn = $("<button>");
     deleteBtn.attr("style", "font-size:10px");
     deleteBtn.addClass("delete-btn");
@@ -320,5 +320,8 @@ function updateFirebase(key, parties) {
 $(document).on('click','.delete-btn', function (){
   var id = ($(this)[0].id).split('-');
   database.ref("/groupArray/" + id[1]).remove();
+});
+
+database.ref("/groupArray").on("child_removed", function(snapshot) {
   launchMainPage();
 });
