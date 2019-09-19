@@ -5,6 +5,7 @@ function launchLoginPage() {
     $('#log-in-page').show();
     $('#main-page').hide();
     // generate list
+    $("#log-in-list").empty();
     for (var i = 0; i < studentBank.length; i++) {
         var newDiv = new $('<a>');
         newDiv.addClass('dropdown-item name-list');
