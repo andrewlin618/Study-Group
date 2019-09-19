@@ -21,6 +21,8 @@ function launchMainPage() {
     $('#space-holder').hide();
     $('#log-in-page').hide();
     $('#main-page').show();
+    $('#main-page').empty();
+   retrievingData();
 }
 
 function logIn() {
@@ -133,6 +135,7 @@ function validation(){
         alert("Please add start time");
         return false;
     }
+    return true;
 }
 
 $(".time-information").on("click", function () {

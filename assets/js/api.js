@@ -16,7 +16,7 @@ var publishers = [];
 $("#topic-btn").on('click', function () {
     keyword = $("#topic-input").val();
     urlStack = "https://api.stackexchange.com/2.2/search?order=desc&sort=activity&site=stackoverflow" + "&intitle=" + keyword;
-    urlIBN = "http://openlibrary.org/search.json?title=" + keyword;
+    urlIBN = "https://openlibrary.org/search.json?title=" + keyword;
     event.preventDefault();
     $("#questions-show-here").empty();
     $("#books-show-here").empty();
