@@ -13,7 +13,6 @@ function launchLoginPage() {
     }
     var newDiv = new $('<a>');
     newDiv.addClass('dropdown-item name-list');
-    newDiv.text("I am not in the class");
     $("#log-in-list").append(newDiv);
 }
 
