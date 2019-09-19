@@ -50,6 +50,8 @@ function callStackAPI() {
 
 // Displays the questions on page
 function showQuestions(questionsArray) {
+    var header = $("<h5>FAQs : <h5/>")
+    $("#questions-show-here").append(header);
     for (var i = 0; i < questionsArray.length; i++) {
         var newA = $("<a/>");
         var newDiv = $("<div/>");
@@ -92,41 +94,37 @@ function callBooksAPI() {
             bibkeys.push(JSON.parse(response).docs[i].isbn[0]);
             publishers.push(JSON.parse(response).docs[i].publisher[0]);
         }
-        $.ajax({
-            url: urlLinks + bibToSearch,
-            method: "GET"
-        }).then(function (links) {
-            console.log(links);
-            for (var i = 0; i < bibkeys.length; i++) {
-                var bookOBJ = {};
-                var bookImg = "";
-                var info_url = "";
-                if (links[bibkeys[i]]) {
-                    bookOBJ.bookImg = publishers[i];
-                    bookOBJ.info_url = links[bibkeys[i]].info_url;
-                    booksArray.push(bookOBJ);
-                }
-            }
-            showBooks(booksArray);
-        })
+
+        for (var i = 0; i < bibkeys.length; i++) {
+            var bookOBJ = {};
+            var bookImg = "";
+            var info_url = "";
+            bookOBJ.bookImg = 'https://covers.openlibrary.org/b/isbn/' + bibkeys[i] + '-S.jpg';
+            bookOBJ.info_url = 'https://openlibrary.org/isbn/' + bibkeys[i];
+            booksArray.push(bookOBJ);
+
+        }
+        showBooks(booksArray);
     }
     )
 };
 
 function showBooks(booksArray) {
+    var header=$("<h5>Recommended Books : <h5/>");
+    $("#books-show-here").append(header);
     for (var i = 0; i < booksArray.length; i++) {
         var newA = $("<a/>");
         newA.attr("href", booksArray[i].info_url);
         newA.attr("target", "_blank");
-        newA.text(booksArray[i].bookImg);
+        var newImg = $("<img>");
+        newImg.attr("src", booksArray[i].bookImg);
+        newImg.attr("alt",booksArray[i].info_url);
+        newImg.addClass("booksImg");
+        newA.append(newImg);
         $("#books-show-here").append(newA);
     }
 
 };
 
-// $("#questions-show-here").on('click', "button", function (event) {
-//     event.preventDefault();
-//     console.log('no refresh plz')
-// })
 // -------------------------------//
 // -------------------------------//
