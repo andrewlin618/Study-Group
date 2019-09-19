@@ -294,7 +294,11 @@ function printLearnMore(snapshot) {
       var newA = $("<a/>");
       newA.addClass("card-text");
       // newA.attr("src",);
-      newA.text(snapshot.val().books[i].bookImg);
+      var newImg = $("<img>");
+      newImg.attr("src", snapshot.val().books[i].bookImg);
+      newImg.attr("alt",snapshot.val().books[i].info_url);
+      newImg.addClass("booksImg");
+      newA.append(newImg);
       newA.attr("href", snapshot.val().books[i].info_url);
       newA.attr("target", "_blank");
       // newA.append(newDiv);
