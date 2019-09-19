@@ -50,14 +50,14 @@ function callStackAPI() {
 
 // Displays the questions on page
 function showQuestions(questionsArray) {
-    var header = $("<h5>FAQs : <h5/>")
+    var header = $("<label>FAQs : </label>")
     $("#questions-show-here").append(header);
     for (var i = 0; i < questionsArray.length; i++) {
         var newA = $("<a/>");
         var newDiv = $("<div/>");
         newDiv.attr("id", "div-" + i);
         newDiv.addClass("buttonDiv");
-        newDiv.text(questionsArray[i].keywordTitle);
+        newDiv.text(i + 1 + '. ' + questionsArray[i].keywordTitle);
         newA.attr("href", questionsArray[i].keywordURL);
         newA.attr("target", "_blank");
         newA.append(newDiv);
@@ -80,15 +80,13 @@ function callBooksAPI() {
         var length = 0;
         if (JSON.parse(response).docs.length <= 3) {
             length = JSON.parse(response).docs.length;
-        }
-        else {
+        } else {
             length = 3;
         }
         for (var i = 0; i < length; i++) {
             if (i === 0) {
                 bibToSearch = (JSON.parse(response).docs[i].isbn[0]);
-            }
-            else {
+            } else {
                 bibToSearch = bibToSearch + "," + (JSON.parse(response).docs[i].isbn[0]);
             }
             bibkeys.push(JSON.parse(response).docs[i].isbn[0]);
@@ -105,26 +103,33 @@ function callBooksAPI() {
 
         }
         showBooks(booksArray);
-    }
-    )
+    })
 };
 
 function showBooks(booksArray) {
-    var header=$("<h5>Recommended Books : <h5/>");
+    var header = $("<label>Recommended Books : </label>");
     $("#books-show-here").append(header);
+    $("#books-show-here").append($('<br>'));
     for (var i = 0; i < booksArray.length; i++) {
         var newA = $("<a/>");
         newA.attr("href", booksArray[i].info_url);
         newA.attr("target", "_blank");
         var newImg = $("<img>");
         newImg.attr("src", booksArray[i].bookImg);
-        newImg.attr("alt",booksArray[i].info_url);
+        newImg.attr("alt", booksArray[i].info_url);
         newImg.addClass("booksImg");
+        newImg.css('width','100px')
+        newImg.css('height','100px')
         newA.append(newImg);
         $("#books-show-here").append(newA);
     }
 
 };
+
+
+
+
+
 
 // -------------------------------//
 // -------------------------------//

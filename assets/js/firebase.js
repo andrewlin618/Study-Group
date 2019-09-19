@@ -44,6 +44,8 @@ $("#submit-btn").on("click", function (event) {
   grpOBJ.endTime = $('#end-time-input').val();
   grpOBJ.creator = localStorage.getItem('username');
   grpOBJ.participants = [localStorage.getItem('username')];
+  grpOBJ.chatBox = ['chat box:'];
+
 
   // groupArrays.push(grpOBJ);
 
@@ -71,8 +73,10 @@ function saveDataToDB(grpOBJ) {
     startTime: grpOBJ.startTime,
     endTime: grpOBJ.endTime,
     creator: grpOBJ.creator,
-    participants: grpOBJ.participants
+    participants: grpOBJ.participants,
+    chatBox: grpOBJ.chatBox
   })
+
 }
 
 
@@ -163,7 +167,7 @@ function retrievingData() {
 
     newDivBtns.append(topicBtn);
 
-    if (snapshot.val().creator === localStorage.getItem('username') || localStorage.getItem('username') === "Manager") {
+    if (snapshot.val().creator === localStorage.getItem('username') || localStorage.getItem('username') === "MANAGER") {
       var deleteBtn = $("<button>");
       deleteBtn.attr("style", "font-size:10px");
       deleteBtn.addClass("delete-btn btn-danger ml-3");
@@ -240,16 +244,13 @@ function printLearnMore(snapshot) {
   if (snapshot.val().creator !== localStorage.getItem('username')) {
     var joinBtn = $('<button>');
     joinBtn.addClass('btn join-btn')
-    // joinBtn.attr('data-toggle', 'button');
-    // joinBtn.attr('aria-pressed', 'false');
-    // joinBtn.attr('autocomplete', 'off');
     joinBtn.attr('data-target', 'participant' + snapshot.key);
     joinBtn.attr("id", "join-" + snapshot.key);
     var joinText = $('<p>');
-    if(participantList.text().split(', ').indexOf(localStorage.getItem('username')) == -1){
+    if (participantList.text().split(', ').indexOf(localStorage.getItem('username')) == -1) {
       joinBtn.addClass('btn-primary')
       joinText.text('+ join');
-    }else{
+    } else {
       joinBtn.addClass('btn-dark')
       joinText.text('- quit');
     }
@@ -272,7 +273,7 @@ function printLearnMore(snapshot) {
     for (var i = 0; i < snapshot.val().qstns.length; i++) {
       var newA = $("<a/>");
       newA.addClass("card-text");
-      newA.text(snapshot.val().qstns[i].keywordTitle);
+      newA.text(i + 1 + '.' + snapshot.val().qstns[i].keywordTitle);
       // newA.attr("src",);
       // newDiv.text(snapshot.val().qstns[i].keywordTitle);
       newA.attr("href", snapshot.val().qstns[i].keywordURL);
@@ -280,9 +281,10 @@ function printLearnMore(snapshot) {
       // newA.append(newDiv);
       // questionList.append(newA)
       newDivMain.append(newA)
+      newDivMain.append('<br>');
     }
   }
-
+  newDivMain.append('<br>');
   var bookList = $('<h5>');
   bookList.text('Books Recommended: ');
 
@@ -294,7 +296,11 @@ function printLearnMore(snapshot) {
       var newA = $("<a/>");
       newA.addClass("card-text");
       // newA.attr("src",);
-      newA.text(snapshot.val().books[i].bookImg);
+      var newImg = $("<img>");
+      newImg.attr("src", snapshot.val().books[i].bookImg);
+      newImg.attr("alt", snapshot.val().books[i].info_url);
+      newImg.addClass("booksImg");
+      newA.append(newImg);
       newA.attr("href", snapshot.val().books[i].info_url);
       newA.attr("target", "_blank");
       // newA.append(newDiv);
@@ -302,7 +308,47 @@ function printLearnMore(snapshot) {
       newDivMain.append(newA)
     }
   }
+  newDivMain.append('<br>');
+  newDivMain.append('<br>');
 
+  //append chatBox
+  var chatBoxTitle = $('<h5>');
+  chatBoxTitle.text('Chat box: ');
+  newDivMain.append(chatBoxTitle);
+
+  var chatBox = $('<div>');
+  chatBox.addClass('card');
+  chatBox.attr('id', 'chatBox-' + snapshot.key);
+  chatBox.css('min-height', '100px');
+  chatBox.html(snapshot.val().chatBox.join('<br>→'));
+  // console.log(snapshot.val().chatBox.join('<br>'));
+
+
+
+  newDivMain.append(chatBox);
+
+  //input field:
+  var inputDiv = $('<div>');
+  inputDiv.addClass('input-group mb-3');
+  var inputWords = $('<input>');
+  inputWords.attr('type', 'text');
+  inputWords.attr('id', 'input-' + snapshot.key);
+  inputWords.attr('placeholder', 'comment:');
+  inputWords.addClass('form-control');
+  inputDiv.append(inputWords);
+  var buttonWrapper = $('<div>');
+  buttonWrapper.addClass("input-group-append");
+  var buttonSend = $('<button>');
+  buttonSend.addClass('btn btn-success send-btn');
+  buttonSend.text('send')
+  buttonSend.attr('data-target', 'chatBox' + snapshot.key);
+  buttonSend.attr("id", "send-" + snapshot.key);
+
+
+  buttonWrapper.append(buttonSend);
+  inputDiv.append(buttonWrapper);
+
+  newDivMain.append(inputDiv);
   learnMoreDiv.append(newDivMain);
 
 
@@ -322,9 +368,7 @@ $(document).on('click', '.join-btn', function () {
     $(this).addClass('btn-dark');
 
   } else {
-    console.log('????????:' + part.text().replace(', '+localStorage.getItem('username'),''));
-    // console.log('???:' + parties);
-    parties = part.text(part.text().replace(', '+localStorage.getItem('username'),''));
+    parties = part.text(part.text().replace(', ' + localStorage.getItem('username'), ''));
     updateFirebase(id[1], parties[0].textContent);
     $(this).text('+ join');
     $(this).removeClass('btn-dark');
@@ -332,11 +376,7 @@ $(document).on('click', '.join-btn', function () {
   }
 });
 
-function updateFirebase(key, parties) {
-  database.ref("/groupArray/" + key).update({
-    participants: parties.split(", ")
-  })
-};
+
 
 $(document).on('click', '.delete-btn', function () {
   var id = ($(this)[0].id).split('-');
@@ -346,3 +386,32 @@ $(document).on('click', '.delete-btn', function () {
 database.ref("/groupArray").on("child_removed", function (snapshot) {
   launchMainPage();
 });
+
+
+$(document).on('click', '.send-btn', function () {
+  var id = ($(this)[0].id).split('-');
+
+  var chat = $('#chatBox-' + id[1]);
+  var input = $('#input-' + id[1]);
+
+
+  chat.html(chat.html() + '<br>→' + username + ":   " + input.val());
+  chats = chat.html();
+  console.log(chats);
+  input.val('');
+
+  updateFirebase2(id[1], chats);
+
+})
+
+function updateFirebase(key, parties) {
+  database.ref("/groupArray/" + key).update({
+    participants: parties.split(", ")
+  })
+};
+
+function updateFirebase2(key, chats) {
+  database.ref("/groupArray/" + key).update({
+    chatBox: chats.split("<br>→")
+  })
+};

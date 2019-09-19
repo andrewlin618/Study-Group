@@ -30,7 +30,7 @@ $(document).on('click', '.name-list', function () {
     setTimeout(function () {
         logIn();
         launchMainPage();
-    }, 2500)
+    },  500)
 });
 
 //Log out
@@ -39,10 +39,9 @@ $(document).on('click', '#log-out', function () {
     $('#navbar-btn').addClass('collapsed')
     $('#navbar-btn').attr('aria-expanded', "false")
     $('#navbarNav').removeClass('show');
-    setTimeout
     setTimeout(function () {
         launchLoginPage();
-    }, 2500)
+    }, 500)
 })
 
 // ============================= Navbar ==============================
