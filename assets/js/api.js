@@ -118,8 +118,8 @@ function showBooks(booksArray) {
         newImg.attr("src", booksArray[i].bookImg);
         newImg.attr("alt", booksArray[i].info_url);
         newImg.addClass("booksImg");
-        newImg.css('width','200px')
-        newImg.css('height','200px')
+        newImg.css('width','100px')
+        newImg.css('height','100px')
         newA.append(newImg);
         $("#books-show-here").append(newA);
     }
