@@ -19,7 +19,7 @@ function launchLoginPage() {
         $("#log-in-list").append(newDiv);
     }
     var newDiv = new $('<a>');
-    newDiv.text('MANAGER');
+    newDiv.text('Manager');
     newDiv.addClass('dropdown-item name-list text-danger font-weight-bold');
     $("#log-in-list").append(newDiv);
 }
