@@ -11,8 +11,15 @@ function launchLoginPage() {
         newDiv.text(studentBank[i]);
         $("#log-in-list").append(newDiv);
     }
+    for (var i = 0; i < taBank.length; i++) {
+        var newDiv = new $('<a>');
+        newDiv.addClass('dropdown-item name-list font-weight-bold');
+        newDiv.text(taBank[i]);
+        $("#log-in-list").append(newDiv);
+    }
     var newDiv = new $('<a>');
-    newDiv.addClass('dropdown-item name-list');
+    newDiv.text('MANAGER');
+    newDiv.addClass('dropdown-item name-list text-danger font-weight-bold');
     $("#log-in-list").append(newDiv);
 }
 
@@ -26,7 +33,7 @@ function launchMainPage() {
 
 function logIn() {
 
-    $('#user-image').attr('src', 'assets/images/' + username.replace(' ', '-') + '.png');
+    $('#user-image').attr('src', 'assets/images/' + username.replace(/ /g, '-') + '.png');
     $('#name-shortcut').text(localStorage.getItem('username-shortcut'));
     if (localStorage.getItem('user-category-select')) {
         $('#category-select').val(localStorage.getItem('user-category-select'));
