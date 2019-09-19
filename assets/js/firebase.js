@@ -91,15 +91,14 @@ function retrievingData() {
     accordionDiv.addClass('accordion');
     learnMoreDiv = $('<div>');
     learnMoreDiv.addClass('collapse');
-    learnMoreDiv.attr("id", snapshot.val().creator.replace(/\s/g, "") + snapshot.key);
+    learnMoreDiv.attr("id", snapshot.val().creator.replace(' ', '') + snapshot.key);
 
 
 
     // -----------------------------
     // -----------------------------
-    console.log('damn:' + snapshot.val().creator.replace(' ','-'));
     var newImg = $("<img>");
-    newImg.attr("src", 'assets/images/' + snapshot.val().creator.replace(' ','-') +'.png');
+    newImg.attr("src", 'assets/images/' + snapshot.val().creator.replace(' ', '-') + '.png');
     newImg.addClass("image-information creator-img float-left my-3");
     // -----------------------------
     var newDiv = $("<div>");
@@ -229,32 +228,36 @@ function printLearnMore(snapshot) {
   participantsTitle.addClass('card-title');
   participantsTitle.text('Participants: ');
   var participantList = $('<p>');
-  participantList.attr('id', 'participant-' + snapshot.key)
-  participantList.text(snapshot.val().participants)
-  var joinBtn = $('<button>');
-  joinBtn.addClass('btn btn-primary join-btn')
-  joinBtn.attr('data-toggle', 'button');
-  joinBtn.attr('aria-pressed', 'false');
-  joinBtn.attr('autocomplete', 'off');
-  joinBtn.attr('data-target', 'participant' + snapshot.key);
-  joinBtn.attr("id", "join-" + snapshot.key);
-
-  var joinText = $('<p>');
-  joinText.text('+ join');
-  joinBtn.append(joinText);
-
-  var questionList = $('<h5>');
-  questionList.text('FAQ: ');
-
+  participantList.attr('id', 'participant-' + snapshot.key);
+  participantList.text(snapshot.val().participants.join(' , '));
   newDivMain.append(creatorTitle);
   newDivMain.append(creatorName);
   newDivMain.append('<br>');
   newDivMain.append(participantsTitle);
   newDivMain.append(participantList);
   newDivMain.append('<br>');
-  newDivMain.append(joinBtn);
-  newDivMain.append('<br>');
-  newDivMain.append('<br>');
+
+  if (snapshot.val().creator !== localStorage.getItem('username')) {
+    var joinBtn = $('<button>');
+    joinBtn.addClass('btn btn-primary join-btn')
+    joinBtn.attr('data-toggle', 'button');
+    joinBtn.attr('aria-pressed', 'false');
+    joinBtn.attr('autocomplete', 'off');
+    joinBtn.attr('data-target', 'participant' + snapshot.key);
+    joinBtn.attr("id", "join-" + snapshot.key);
+
+    var joinText = $('<p>');
+    joinText.text('+ join');
+    joinBtn.append(joinText);
+    newDivMain.append(joinBtn);
+    newDivMain.append('<br>');
+    newDivMain.append('<br>');
+  }
+
+  var questionList = $('<h5>');
+  questionList.text('FAQ: ');
+
+
   newDivMain.append(questionList);
 
   if (snapshot.val().qstns) {
@@ -300,6 +303,7 @@ function printLearnMore(snapshot) {
 
 $(document).on('click', '.join-btn', function () {
   var id = ($(this)[0].id).split('-');
+  console.log('???:' + id);
   var part = $('#participant-' + id[1]);
   if (part.text().split(' , ').indexOf(localStorage.getItem('username')) > -1) {
     alert("you are already a member");
