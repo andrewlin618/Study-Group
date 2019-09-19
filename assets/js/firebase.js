@@ -320,5 +320,8 @@ function updateFirebase(key, parties) {
 $(document).on('click','.delete-btn', function (){
   var id = ($(this)[0].id).split('-');
   database.ref("/groupArray/" + id[1]).remove();
+});
+
+database.ref("/groupArray").on("child_removed", function(snapshot) {
   launchMainPage();
 });
