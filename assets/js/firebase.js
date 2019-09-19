@@ -229,7 +229,7 @@ function printLearnMore(snapshot) {
   participantsTitle.text('Participants: ');
   var participantList = $('<p>');
   participantList.attr('id', 'participant-' + snapshot.key);
-  participantList.text(snapshot.val().participants.join(' , '));
+  participantList.text(snapshot.val().participants.join(', '));
   newDivMain.append(creatorTitle);
   newDivMain.append(creatorName);
   newDivMain.append('<br>');
@@ -239,15 +239,22 @@ function printLearnMore(snapshot) {
 
   if (snapshot.val().creator !== localStorage.getItem('username')) {
     var joinBtn = $('<button>');
-    joinBtn.addClass('btn btn-primary join-btn')
-    joinBtn.attr('data-toggle', 'button');
-    joinBtn.attr('aria-pressed', 'false');
-    joinBtn.attr('autocomplete', 'off');
+    joinBtn.addClass('btn join-btn')
+    // joinBtn.attr('data-toggle', 'button');
+    // joinBtn.attr('aria-pressed', 'false');
+    // joinBtn.attr('autocomplete', 'off');
     joinBtn.attr('data-target', 'participant' + snapshot.key);
     joinBtn.attr("id", "join-" + snapshot.key);
-
     var joinText = $('<p>');
-    joinText.text('+ join');
+    if(participantList.text().split(', ').indexOf(localStorage.getItem('username')) == -1){
+      joinBtn.addClass('btn-primary')
+      joinText.text('+ join');
+    }else{
+      joinBtn.addClass('btn-dark')
+      joinText.text('- quit');
+    }
+
+
     joinBtn.append(joinText);
     newDivMain.append(joinBtn);
     newDivMain.append('<br>');
@@ -303,19 +310,31 @@ function printLearnMore(snapshot) {
 
 $(document).on('click', '.join-btn', function () {
   var id = ($(this)[0].id).split('-');
-  console.log('???:' + id);
+
   var part = $('#participant-' + id[1]);
-  if (part.text().split(' , ').indexOf(localStorage.getItem('username')) > -1) {
-    alert("you are already a member");
-  } else {
-    var parties = part.text(part.text() + " , " + localStorage.getItem('username'));
+  var parties = '';
+
+  if (part.text().split(', ').indexOf(localStorage.getItem('username')) == -1) {
+    parties = part.text(part.text() + ", " + localStorage.getItem('username'));
     updateFirebase(id[1], parties[0].textContent);
+    $(this).text('- quit');
+    $(this).removeClass('btn-primary');
+    $(this).addClass('btn-dark');
+
+  } else {
+    console.log('????????:' + part.text().replace(', '+localStorage.getItem('username'),''));
+    // console.log('???:' + parties);
+    parties = part.text(part.text().replace(', '+localStorage.getItem('username'),''));
+    updateFirebase(id[1], parties[0].textContent);
+    $(this).text('+ join');
+    $(this).removeClass('btn-dark');
+    $(this).addClass('btn-primary');
   }
 });
 
 function updateFirebase(key, parties) {
   database.ref("/groupArray/" + key).update({
-    participants: parties.split(" , ")
+    participants: parties.split(", ")
   })
 };
 
