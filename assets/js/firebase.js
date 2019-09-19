@@ -102,7 +102,7 @@ function retrievingData() {
     // -----------------------------
     // -----------------------------
     var newImg = $("<img>");
-    newImg.attr("src", 'assets/images/' + snapshot.val().creator.replace(' ', '-') + '.png');
+    newImg.attr("src", 'assets/images/' + snapshot.val().creator.replace(/ /g,'-') + '.png');
     newImg.addClass("image-information creator-img float-left my-3");
     // -----------------------------
     var newDiv = $("<div>");
