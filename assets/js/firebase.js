@@ -167,7 +167,7 @@ function retrievingData() {
 
     newDivBtns.append(topicBtn);
 
-    if (snapshot.val().creator === localStorage.getItem('username') || localStorage.getItem('username') === "MANAGER") {
+    if (snapshot.val().creator === localStorage.getItem('username') || localStorage.getItem('username') === "Manager") {
       var deleteBtn = $("<button>");
       deleteBtn.attr("style", "font-size:10px");
       deleteBtn.addClass("delete-btn btn-danger ml-3");
