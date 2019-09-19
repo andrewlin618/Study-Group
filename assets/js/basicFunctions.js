@@ -126,7 +126,6 @@ function clearForm() {
 }
 
 function validation() {
-    var d = new Date();
     if ($('#topic-input').val() === "") {
         alert("Please add discussion topic");
         return false;
