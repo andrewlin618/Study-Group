@@ -1,4 +1,4 @@
-# study Group
+# Study Group
 
 This web application is for students looking to either create or find local study groups
 
@@ -6,7 +6,7 @@ Users are able to create study groups, specify topics, receive recommendations o
 
 Users can also find all study groups created by different people on the main page, they will be able to join them, chat, quit and filter by location, topic (coming soon!)and etc. They can alse see who is also attending the study group
 
-## END GOAL
+## End Goal
 Let all coding lovers have some offline study groups to help them study and improve.
 
 ## Getting Started
