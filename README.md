@@ -17,6 +17,7 @@ In the project directory, you can open index.html to run the app.
 * Firebase 
 * Bootstrap
 * Xmind
+* Ajax
 * Jquery
 * Responsive design
 
