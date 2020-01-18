@@ -14,6 +14,7 @@ Users can also find all study groups created by different people on the main pag
 - [Screenshot](#screenshot)
 - [Tech We Used](#tech-we-used)
 - [API We Used](#api-we-used)
+- [Stretch Goals](#stretch-goals)
 - [Authors](#authors)
 
 ## End Goal
