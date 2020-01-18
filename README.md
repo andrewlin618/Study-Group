@@ -36,6 +36,8 @@ In the project directory, you can just open index.html to run the app.
 
 ## API We Used
 
+## Stretch Goals
+
 ## Authors
 
 * [**Andrew Lin**](https://github.com/andrewlin618)
