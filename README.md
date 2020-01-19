@@ -24,7 +24,11 @@ Let all coding lovers have some offline study groups to help them study and impr
 
 In the project directory, you can just open index.html to run the app.
 
-## Functions
+## Function
+- Create a new study group
+
+## Screenshot
+![screenshot 1](https://i.ibb.co/vV7W2Bw/screenshot.png)
 
 ## Tech We Used
 * Firebase 
