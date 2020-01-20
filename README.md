@@ -28,10 +28,20 @@ In the project directory, you can just open index.html to run the app.
 - Create a new study group
   - Select a category
   - Select level of difficulty
-  - Select
+  - Select the capacity of the study group
+  - Add a discussion topic
+    > Get FAQs & books recommendation of this topic
+  - Add location
+  - Add time
+
+- Join or quit a study group created by others
+
+- Chatbox under each study group
+
+ 
 
 ## Screenshots
-![screenshot 1](https://i.ibb.co/vV7W2Bw/screenshot.png)
+![screenshot 1](https://i.ibb.co/hWh0sBx/screenshot-copy.png)
 
 ## Tech We Used
 * Firebase 
