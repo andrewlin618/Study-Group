@@ -10,8 +10,8 @@ Users can also find all study groups created by different people on the main pag
 
 - [End Goal](#end-goal)
 - [Getting Started](#getting-started)
-- [Functions](#function)
-- [Screenshot](#screenshot)
+- [Functions](#functions)
+- [Screenshots](#screenshots)
 - [Tech We Used](#tech-we-used)
 - [API We Used](#api-we-used)
 - [Stretch Goals](#stretch-goals)
@@ -24,10 +24,13 @@ Let all coding lovers have some offline study groups to help them study and impr
 
 In the project directory, you can just open index.html to run the app.
 
-## Function
+## Functions
 - Create a new study group
+  - Select a category
+  - Select level of difficulty
+  - Select
 
-## Screenshot
+## Screenshots
 ![screenshot 1](https://i.ibb.co/vV7W2Bw/screenshot.png)
 
 ## Tech We Used
