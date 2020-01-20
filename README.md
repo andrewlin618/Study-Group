@@ -44,17 +44,20 @@ In the project directory, you can just open index.html to run the app.
 ## Tech We Used
 * Firebase 
 * Bootstrap
-* Xmind
+* X mind
 * Ajax
-* Jquery
+* jQuery
 * Responsive design
 * Local storage
 
 ## API We Used
 - Open Library API (for books recommendation)
-- Stackexchange API (for FAQs on Stack Overflow)
+- Stack Exchange API (for FAQs on Stack Overflow)
 
 ## Stretch Goals
+- Use Google Location API.
+- Add filter function for category, location, time etc.
+- Add user's homepage for more convenient management.
 
 ## Authors
 
