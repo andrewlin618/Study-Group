@@ -25,7 +25,7 @@ Let all coding lovers have some offline study groups to help them study and impr
 In the project directory, you can just open index.html to run the app.
 
 ## Functions
-- Create a new study group
+- Create a new study group.
   - Select a category
   - Select level of difficulty
   - Select the capacity of the study group
@@ -34,11 +34,9 @@ In the project directory, you can just open index.html to run the app.
   - Add location
   - Add time
 
-- Join or quit a study group created by others
+- Join or quit a study group created by others.
 
-- Chatbox under each study group
-
- 
+- Chatbox under each study group.
 
 ## Screenshots
 ![screenshot 1](https://i.ibb.co/1qhcZrY/screenshot-copy.png)
@@ -50,8 +48,11 @@ In the project directory, you can just open index.html to run the app.
 * Ajax
 * Jquery
 * Responsive design
+* Local storage
 
 ## API We Used
+- Open Library API (for books recommendation)
+- Stackexchange API (for FAQs on Stack Overflow)
 
 ## Stretch Goals
 
