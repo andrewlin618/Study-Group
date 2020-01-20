@@ -41,7 +41,7 @@ In the project directory, you can just open index.html to run the app.
  
 
 ## Screenshots
-![screenshot 1](https://i.ibb.co/hWh0sBx/screenshot-copy.png)
+![screenshot 1](https://i.ibb.co/1qhcZrY/screenshot-copy.png)
 
 ## Tech We Used
 * Firebase 
