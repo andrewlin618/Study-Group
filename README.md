@@ -1,4 +1,4 @@
-
+<img src="assets/images/screenshot.png" height=300px alt="screenshot"></img>
 
 # Study Group
 
@@ -25,25 +25,39 @@ Let all coding lovers have some offline study groups to help them study and impr
 In the project directory, you can just open index.html to run the app.
 
 ## Functions
-- Create a new study group
+- Create a new study group.
   - Select a category
   - Select level of difficulty
-  - Select
+  - Select the capacity of the study group
+  - Add a discussion topic
+    > Get FAQs & books recommendation of this topic
+  - Add location
+  - Add time
+
+- Join or quit a study group created by others.
+
+- Chatbox under each study group.
 
 ## Screenshots
-![screenshot 1](https://i.ibb.co/vV7W2Bw/screenshot.png)
+![screenshot 1](https://i.ibb.co/1qhcZrY/screenshot-copy.png)
 
 ## Tech We Used
 * Firebase 
 * Bootstrap
-* Xmind
+* X mind
 * Ajax
-* Jquery
+* jQuery
 * Responsive design
+* Local storage
 
 ## API We Used
+- Open Library API (for books recommendation)
+- Stack Exchange API (for FAQs on Stack Overflow)
 
 ## Stretch Goals
+- Use Google Location API.
+- Add filter function for category, location, time etc.
+- Add user's homepage for more convenient management.
 
 ## Authors
 
