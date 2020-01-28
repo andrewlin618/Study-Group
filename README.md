@@ -1,4 +1,4 @@
-
+<img src="assets/images/screenshot.png" height=300px alt="screenshot"></img>
 
 # Study Group
 
