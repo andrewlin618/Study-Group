@@ -4,9 +4,9 @@
 
 This web application is for students looking to either create or find local study groups.
 
-Users are able to create study groups, specify topics, receive recommendations on books, set parameters and choose a location.
+Users can create study groups, specify topics, receive recommendations on books, set parameters, and choose a location.
 
-Users can also find all study groups created by different people on the main page, they will be able to join them, chat, quit and filter by location, topic (coming soon!)and etc. They can also see who is also attending the study group.
+Users can also find all study groups created by different people on the main page. They will be able to join them, chat, quit and filter by location, topic (coming soon!), etc. They can also see who is also attending the study group.
 
 - [End Goal](#end-goal)
 - [Getting Started](#getting-started)
@@ -22,12 +22,12 @@ Let all coding lovers have some offline study groups to help them study and impr
 
 ## Getting Started
 
-In the project directory, you can just open index.html to run the app.
+In the project directory, you can open index.html to run the app.
 
 ## Functions
 - Create a new study group.
   - Select a category
-  - Select level of difficulty
+  - Select the level of difficulty
   - Select the capacity of the study group
   - Add a discussion topic
     > Get FAQs & books recommendation of this topic
@@ -56,8 +56,8 @@ In the project directory, you can just open index.html to run the app.
 
 ## Stretch Goals
 - Use Google Location API.
-- Add filter function for category, location, time etc.
-- Add user's homepage for more convenient management.
+- Add filter function for the category, location, time, etc.
+- Add the user's homepage for more convenient management.
 
 ## Authors
 
