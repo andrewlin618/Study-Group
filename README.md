@@ -1,30 +1,47 @@
-<img src="assets/images/screenshot.png" height=300px alt="screenshot"></img>
-
 # Study Group
 
-This web application is for students looking to either create or find local study groups.
+Online community for coding-lovers to either create or find local study groups.
 
-Users can create study groups, specify topics, receive recommendations on books, set parameters, and choose a location.
+> [Live Demo!](https://andrewlin618.github.io/Study_Group/)
 
-Users can also find all study groups created by different people on the main page. They will be able to join them, chat, quit and filter by location, topic (coming soon!), etc. They can also see who is also attending the study group.
+* [About The Project](#about-the-project)
+  * [Build With](#build-with)
+* [Getting Started](#getting-started)
+  * [Installation](#installation)
+  * [Usage](#usage)
+  * [3rd Party APIs](#3rd-Party-APIs)
+  * [Stretch Goals](#stretch-goals)
+* [Authors](#authors)
+* [Contact](#contact)
 
-- [End Goal](#end-goal)
-- [Getting Started](#getting-started)
-- [Functions](#functions)
-- [Screenshots](#screenshots)
-- [Tech We Used](#tech-we-used)
-- [API We Used](#api-we-used)
-- [Stretch Goals](#stretch-goals)
-- [Authors](#authors)
+## About The Project
 
-## End Goal
-Let all coding lovers have some offline study groups to help them study and improve.
+<img src="assets/images/screenshot.png" height=500px alt="screenshot"></img>
+
+This web application is built for coding-lovers looking for local study groups.
+
+1. The user is able to create and delete his/her study group, specify topics, and the web will recommend questions and books related to this topic.
+
+2. The user is also be able to join/quit other user's study group, leave messages.
+
+### Build With
+- HTML
+- CSS
+- JavaScript/jQuery
+- Bootstrap.js
+- Firebase 
 
 ## Getting Started
 
-In the project directory, you can open index.html to run the app.
+### Installation
+1. Get a local clone of the repo
+```
+git clone https://github.com/andrewlin618/Study-Group.git
+```
 
-## Functions
+### Usage
+1. Open index.html in your browser;
+
 - Create a new study group.
   - Select a category
   - Select the level of difficulty
@@ -38,29 +55,20 @@ In the project directory, you can open index.html to run the app.
 
 - Chatbox under each study group.
 
-## Screenshots
-![screenshot 1](https://i.ibb.co/1qhcZrY/screenshot-copy.png)
-
-## Tech We Used
-* Firebase 
-* Bootstrap
-* X mind
-* Ajax
-* jQuery
-* Responsive design
-* Local storage
-
-## API We Used
+### 3rd Party APIs
 - Open Library API (for books recommendation)
 - Stack Exchange API (for FAQs on Stack Overflow)
 
-## Stretch Goals
+### Stretch Goals
 - Use Google Location API.
 - Add filter function for the category, location, time, etc.
 - Add the user's homepage for more convenient management.
 
 ## Authors
-
 * [**Andrew Lin**](https://github.com/andrewlin618)
 * **Swathi Pottigari**
 * **Joshua Jonas**
+
+## Contact
+- LinkedIn: [Andrew Lin](https://www.linkedin.com/in/andrewlin618)
+- Email:    &nbsp; &nbsp; `andrewlin618@gmail.com`
