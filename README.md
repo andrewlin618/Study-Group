@@ -2,8 +2,9 @@
 
 Online community for coding-lovers to either create or find local study groups.
 
-> [Live Demo!](https://andrewlin618.github.io/Study-Group/)
+[Live Demo!](https://andrewlin618.github.io/Study-Group/)
 
+## Table of Contents
 * [About The Project](#about-the-project)
   * [Build With](#build-with)
 * [Getting Started](#getting-started)
