@@ -21,11 +21,11 @@ Online community for coding-lovers to either create or find local study groups.
 
 This web application is built for coding-lovers looking for local study groups.
 
-1. The user is able to create and delete his/her study group, specify topics, and the web will recommend questions and books related to this topic.
+1. The user can create and delete his/her study group, specify topics, and the web will recommend questions and books related to this topic.
 
-2. The user is also able to join/quit other user's study group, leave messages.
+2. The user can also able to join/quit other user's study group, leave messages.
 
-3. The admin is able to delete all users' study groups.
+3. The admin can delete all users' study groups.
 
 ### Build With
 - HTML
