@@ -1,8 +1,7 @@
 # Study Group
-
 Online community for coding-lovers to either create or find local study groups.
 
-[Live Demo!](https://andrewlin618.github.io/Study-Group/)
+<img src="assets/images/screenshot.png" height=500px alt="screenshot"></img>
 
 ## Table of Contents
 * [About The Project](#about-the-project)
@@ -17,7 +16,7 @@ Online community for coding-lovers to either create or find local study groups.
 
 ## About The Project
 
-<img src="assets/images/screenshot.png" height=500px alt="screenshot"></img>
+[Live Demo!](https://andrewlin618.github.io/Study-Group/)
 
 This web application is built for coding-lovers looking for local study groups.
 
